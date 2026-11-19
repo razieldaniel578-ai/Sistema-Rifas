@@ -163,7 +163,19 @@
         .tarjeta-premio {
             color: var(--text-muted);
             font-size: 0.98rem;
-            margin-bottom: 20px;
+            margin-bottom: 12px;
+        }
+
+        .tarjeta-limite {
+            display: inline-block;
+            background: #fef3c7;
+            color: #92400e;
+            border: 1px solid #f59e0b;
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 8px;
+            margin-bottom: 16px;
         }
 
         .tarjeta-meta {
@@ -195,6 +207,54 @@
 
         .tarjeta-rifa:hover .btn-entrar {
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        /* Bloque de Facebook en la vista principal */
+        .banner-facebook {
+            margin-top: 45px;
+            background: rgba(15, 23, 42, 0.88);
+            border: 1px solid rgba(59, 130, 246, 0.45);
+            border-radius: 20px;
+            padding: 28px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+        }
+
+        .banner-facebook-texto h3 {
+            font-size: 1.45rem;
+            color: #ffffff;
+            margin-bottom: 6px;
+        }
+
+        .banner-facebook-texto p {
+            color: #cbd5e1;
+            font-size: 0.98rem;
+            max-width: 680px;
+        }
+
+        .btn-facebook {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #1877f2 0%, #0d5ec4 100%);
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 800;
+            padding: 14px 22px;
+            border-radius: 12px;
+            font-size: 1rem;
+            box-shadow: 0 6px 18px rgba(24, 119, 242, 0.4);
+            transition: transform 0.2s, opacity 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn-facebook:hover {
+            transform: translateY(-2px);
+            opacity: 0.95;
         }
 
         /* =========================================
@@ -242,7 +302,7 @@
             grid-template-columns: 240px 1fr;
             gap: 30px;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
@@ -276,7 +336,7 @@
         .estadisticas-bar {
             display: flex;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 12px;
             margin-bottom: 15px;
             justify-content: flex-start;
         }
@@ -288,9 +348,9 @@
         .stat-pill {
             background: #f1f5f9;
             border: 1px solid #cbd5e1;
-            padding: 8px 16px;
+            padding: 8px 14px;
             border-radius: 10px;
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             font-weight: 700;
             color: var(--primary);
         }
@@ -315,6 +375,101 @@
             transition: width 0.5s ease;
         }
 
+        /* Aviso de sorteo en vivo cuando se agotan los boletos */
+        .aviso-sorteo-vivo {
+            display: none;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            color: #78350f;
+            border: 2px solid #f59e0b;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 15px 30px rgba(245, 158, 11, 0.25);
+        }
+
+        .aviso-sorteo-vivo h3 {
+            font-size: 1.5rem;
+            color: #92400e;
+            margin-bottom: 8px;
+        }
+
+        .aviso-sorteo-vivo p {
+            font-size: 1rem;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        /* Barra de selección múltiple y cobro */
+        .barra-seleccion {
+            background: #f8fafc;
+            border: 2px solid #10b981;
+            border-radius: 16px;
+            padding: 18px 22px;
+            margin-bottom: 22px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .seleccion-resumen strong {
+            color: var(--primary);
+            font-size: 1.05rem;
+        }
+
+        .seleccion-chips {
+            color: #065f46;
+            font-weight: 800;
+            font-size: 0.98rem;
+            margin-top: 4px;
+        }
+
+        .seleccion-acciones {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-limpiar {
+            background: #e2e8f0;
+            color: #334155;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .btn-limpiar:hover:not(:disabled) {
+            background: #cbd5e1;
+        }
+
+        .btn-cobrar {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: #ffffff;
+            border: none;
+            padding: 13px 24px;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 6px 16px rgba(16, 185, 129, 0.35);
+            transition: transform 0.15s, opacity 0.2s;
+        }
+
+        .btn-cobrar:hover:not(:disabled) {
+            transform: translateY(-2px);
+        }
+
+        .btn-cobrar:disabled,
+        .btn-limpiar:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         /* Tablero de números */
         .tablero-contenedor {
             background: var(--card-bg);
@@ -331,7 +486,7 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 15px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             padding-bottom: 15px;
             border-bottom: 2px dashed #cbd5e1;
         }
@@ -343,7 +498,8 @@
 
         .leyenda {
             display: flex;
-            gap: 20px;
+            flex-wrap: wrap;
+            gap: 18px;
             font-size: 0.95rem;
             font-weight: 700;
         }
@@ -363,6 +519,11 @@
         .muestra-libre {
             background: #ecfdf5;
             border: 2px solid #10b981;
+        }
+
+        .muestra-seleccionado {
+            background: #10b981;
+            border: 2px solid #047857;
         }
 
         .muestra-ocupado {
@@ -400,10 +561,16 @@
         }
 
         .boleto.libre:hover {
-            transform: translateY(-5px) scale(1.08);
-            background: #10b981;
-            color: white;
-            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.4);
+            transform: translateY(-4px) scale(1.06);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .boleto.seleccionado {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border: 2px solid #064e3b;
+            color: #ffffff;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.45);
         }
 
         .boleto.ocupado {
@@ -415,12 +582,12 @@
         }
 
         /* =========================================
-           MODAL DE PAGO
+           MODAL DE PAGO Y DATOS DEL COMPRADOR
            ========================================= */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(15, 23, 42, 0.8);
+            background: rgba(15, 23, 42, 0.82);
             backdrop-filter: blur(8px);
             display: none;
             align-items: center;
@@ -432,13 +599,15 @@
         .modal-box {
             background: #ffffff;
             color: var(--text-main);
-            max-width: 450px;
+            max-width: 470px;
             width: 100%;
             border-radius: 24px;
-            padding: 35px;
+            padding: 30px;
             text-align: center;
             box-shadow: 0 25px 50px rgba(0,0,0,0.4);
             animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            max-height: 92vh;
+            overflow-y: auto;
         }
 
         @keyframes popIn {
@@ -451,19 +620,51 @@
             background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
             border: 2px dashed var(--gold);
             color: #92400e;
-            font-size: 2.3rem;
+            font-size: 1.35rem;
             font-weight: 900;
-            padding: 12px 32px;
+            padding: 12px 20px;
             border-radius: 16px;
-            margin: 18px 0;
+            margin: 14px 0;
             box-shadow: 0 6px 15px rgba(245, 158, 11, 0.2);
+            word-break: break-word;
+        }
+
+        .form-comprador {
+            text-align: left;
+            margin: 16px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .campo-grupo label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .campo-grupo input {
+            width: 100%;
+            padding: 11px 14px;
+            border: 2px solid #cbd5e1;
+            border-radius: 12px;
+            font-size: 1rem;
+            color: var(--text-main);
+            transition: border-color 0.2s;
+        }
+
+        .campo-grupo input:focus {
+            outline: none;
+            border-color: var(--accent);
         }
 
         .metodos-pago {
             display: flex;
             flex-direction: column;
             gap: 12px;
-            margin: 25px 0;
+            margin: 20px 0 14px;
         }
 
         .btn-metodo {
@@ -490,7 +691,7 @@
 
         .btn-mp { background: linear-gradient(135deg, #009ee3 0%, #0081be 100%); }
         .btn-card { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
-        
+
         .btn-cerrar-modal {
             background: transparent;
             border: none;
@@ -508,7 +709,7 @@
     <!-- Encabezado general -->
     <nav class="navbar">
         <h1>🎟️ Sorteos y Rifas Oficiales</h1>
-        <p>Elige tu rifa favorita, selecciona tu número de la suerte y participa al instante</p>
+        <p>Elige tu rifa favorita, selecciona tus números de la suerte y participa al instante</p>
     </nav>
 
     <div class="container">
@@ -525,6 +726,19 @@
             <div class="grid-rifas" id="contenedorTarjetas">
                 <!-- Las tarjetas se generan automáticamente desde JavaScript -->
             </div>
+
+            <!-- Sección de Facebook al final de las rifas activas -->
+            <section class="banner-facebook" id="seccionFacebookPrincipal">
+                <div class="banner-facebook-texto">
+                    <h3>📣 ¡No te pierdas ningún sorteo en Facebook!</h3>
+                    <p>
+                        En nuestra página oficial publicamos las rifas activas, enviamos los avisos antes de entrar y anunciamos cuándo se realizan los sorteos.
+                    </p>
+                </div>
+                <a id="enlaceFacebookPrincipal" href="https://www.facebook.com/TU_PAGINA_OFICIAL" target="_blank" rel="noopener noreferrer" class="btn-facebook">
+                    👍 Ir a nuestra página de Facebook
+                </a>
+            </section>
         </div>
 
         <!-- ==========================================
@@ -535,15 +749,27 @@
                 ← Volver a todas las rifas
             </button>
 
+            <!-- Aviso cuando se agotan todos los boletos -->
+            <div class="aviso-sorteo-vivo" id="avisoSorteoVivo">
+                <h3>🔴 ¡Boletos agotados! Comienza la rifa</h3>
+                <p>
+                    Ya se vendieron todos los boletos de esta rifa. El sorteo se realizará en vivo en nuestra página oficial de Facebook.
+                </p>
+                <a id="enlaceFacebookEnVivo" href="https://www.facebook.com/TU_PAGINA_EN_VIVO" target="_blank" rel="noopener noreferrer" class="btn-facebook">
+                    🎥 Ver sorteo en vivo en Facebook
+                </a>
+            </div>
+
             <!-- Cabecera de la rifa elegida -->
             <div class="detalle-header">
                 <img id="detalleImagen" src="" alt="Premio" class="detalle-img">
                 <div class="detalle-info">
                     <h2 id="detalleTitulo">Título de la Rifa</h2>
                     <p id="detalleDescripcion">Descripción del premio</p>
-                    
+
                     <div class="estadisticas-bar">
                         <div class="stat-pill">Costo boleto: <span id="detallePrecio">$10</span></div>
+                        <div class="stat-pill">Máx. por compra: <span id="detalleMaxCompra">0</span></div>
                         <div class="stat-pill">Disponibles: <span id="statLibres">0</span></div>
                         <div class="stat-pill">Vendidos: <span id="statVendidos" style="color: var(--danger);">0</span></div>
                     </div>
@@ -554,14 +780,34 @@
                 </div>
             </div>
 
+            <!-- Barra de boletos seleccionados y botón Cobrar -->
+            <div class="barra-seleccion" id="barraSeleccion">
+                <div class="seleccion-resumen">
+                    <strong id="textoCantidadSeleccionados">Boletos seleccionados: 0 de 0</strong>
+                    <div class="seleccion-chips" id="textoBoletosSeleccionados">Ningún boleto elegido todavía — Total: $0.00 MXN</div>
+                </div>
+                <div class="seleccion-acciones">
+                    <button type="button" class="btn-limpiar" id="btnLimpiarSeleccion" onclick="limpiarSeleccion()" disabled>
+                        Limpiar
+                    </button>
+                    <button type="button" class="btn-cobrar" id="btnCobrarSeleccion" onclick="abrirModalCobro()" disabled>
+                        Cobrar boletos →
+                    </button>
+                </div>
+            </div>
+
             <!-- Tablero de boletos -->
             <div class="tablero-contenedor">
                 <div class="tablero-top">
-                    <h3>Selecciona tu número de la suerte:</h3>
+                    <h3 id="tituloTableroBoletos">Selecciona tus números de la suerte:</h3>
                     <div class="leyenda">
                         <div class="leyenda-item">
                             <div class="muestra-boleto muestra-libre"></div>
                             <span>Disponible</span>
+                        </div>
+                        <div class="leyenda-item">
+                            <div class="muestra-boleto muestra-seleccionado"></div>
+                            <span>Elegido</span>
                         </div>
                         <div class="leyenda-item">
                             <div class="muestra-boleto muestra-ocupado"></div>
@@ -579,33 +825,54 @@
     </div>
 
     <!-- ==========================================
-         VENTANA EMERGENTE (MODAL) DE PAGO
+         VENTANA EMERGENTE (MODAL) DE COBRO
          ========================================== -->
     <div class="modal-overlay" id="modalPago">
         <div class="modal-box">
             <h3 id="modalTituloRifa" style="color: var(--primary); font-size: 1.5rem;">Gran Rifa</h3>
-            <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 4px;">Estás a un paso de asegurar tu lugar</p>
-            
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 4px;">Completa tus datos y elige cómo pagar tus boletos</p>
+
             <div class="ticket-seleccionado" id="modalNumeroTexto">#00</div>
-            
-            <p style="font-size: 1.15rem; font-weight: 600;">Total a pagar: <strong id="modalPrecioTexto" style="color: var(--accent);">$10.00 MXN</strong></p>
+
+            <p style="font-size: 1.15rem; font-weight: 600;">
+                Total a pagar: <strong id="modalPrecioTexto" style="color: var(--accent);">$0.00 MXN</strong>
+            </p>
+
+            <div class="form-comprador">
+                <div class="campo-grupo">
+                    <label for="inputNombreComprador">Nombre completo *</label>
+                    <input type="text" id="inputNombreComprador" placeholder="Ej. María López" autocomplete="name" required>
+                </div>
+                <div class="campo-grupo">
+                    <label for="inputTelefonoComprador">Número de teléfono (WhatsApp) *</label>
+                    <input type="tel" id="inputTelefonoComprador" placeholder="Ej. 9511234567" autocomplete="tel" required>
+                </div>
+            </div>
 
             <div class="metodos-pago">
-                <button class="btn-metodo btn-card" onclick="confirmarPago('Tarjeta Débito / Crédito')">
-                    💳 Pagar con Tarjeta (Acreditación inmediata)
+                <button type="button" class="btn-metodo btn-card" onclick="confirmarPago('Tarjeta Débito / Crédito')">
+                    💳 Cobrar con Tarjeta (Acreditación inmediata)
                 </button>
-                <button class="btn-metodo btn-mp" onclick="confirmarPago('Mercado Pago / Transferencia')">
-                    ⚡ Pagar con Mercado Pago / Transferencia
+                <button type="button" class="btn-metodo btn-mp" onclick="confirmarPago('Mercado Pago / Transferencia')">
+                    ⚡ Cobrar con Mercado Pago / Transferencia
                 </button>
             </div>
 
-            <button class="btn-cerrar-modal" onclick="cerrarModalPago()">Cancelar y elegir otro número</button>
+            <button type="button" class="btn-cerrar-modal" onclick="cerrarModalPago()">Cancelar y modificar boletos</button>
         </div>
     </div>
 
     <script>
         // ==========================================
+        // ENLACES OFICIALES DE FACEBOOK
+        // Reemplaza estas URLs por las de tus páginas
+        // ==========================================
+        const URL_FACEBOOK_PRINCIPAL = "https://www.facebook.com/TU_PAGINA_OFICIAL";
+        const URL_FACEBOOK_EN_VIVO = "https://www.facebook.com/TU_PAGINA_EN_VIVO";
+
+        // ==========================================
         // BASE DE DATOS DE TUS RIFAS
+        // maxPorCompra es independiente en cada rifa
         // ==========================================
         const listaRifas = [
             {
@@ -613,7 +880,8 @@
                 titulo: "Gran Rifa: Combo Whisky Especial",
                 premio: "Botella de Andrews Special Blended + Black Derby. Sorteo en vivo por Facebook.",
                 precio: 10,
-                totalNumeros: 100,
+                totalNumeros: 10,
+                maxPorCompra: 5,
                 imagen: "https://images.unsplash.com/photo-1527281400683-1aae777175f8?auto=format&fit=crop&w=600&q=80"
             },
             {
@@ -622,6 +890,7 @@
                 premio: "Botella de Tequila Cabrito Reposado + Kit de vasos tequileros.",
                 precio: 15,
                 totalNumeros: 50,
+                maxPorCompra: 2,
                 imagen: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=600&q=80"
             },
             {
@@ -630,13 +899,27 @@
                 premio: "Premio directo de $1,000 pesos en efectivo o transferencia inmediata al ganador.",
                 precio: 20,
                 totalNumeros: 100,
+                maxPorCompra: 10,
                 imagen: "https://images.unsplash.com/photo-1580519542036-c47de6196ba5?auto=format&fit=crop&w=600&q=80"
             }
         ];
 
         let rifaActual = null;
-        let numeroSeleccionado = null;
+        let boletosVendidosActuales = [];
+        let boletosSeleccionados = [];
         let procesandoPago = false;
+
+        function formatearNumeroBoleto(num, totalNumeros) {
+            const digitos = totalNumeros >= 1000 ? 3 : 2;
+            return String(num).padStart(digitos, '0');
+        }
+
+        function configurarEnlacesFacebook() {
+            const linkPrincipal = document.getElementById('enlaceFacebookPrincipal');
+            const linkEnVivo = document.getElementById('enlaceFacebookEnVivo');
+            if (linkPrincipal) linkPrincipal.href = URL_FACEBOOK_PRINCIPAL;
+            if (linkEnVivo) linkEnVivo.href = URL_FACEBOOK_EN_VIVO;
+        }
 
         // Consulta al backend los boletos vendidos de una rifa
         async function obtenerVendidos(rifaId) {
@@ -657,12 +940,13 @@
         // RENDERIZAR VISTA 1: TARJETAS
         // ==========================================
         async function cargarCatalogo() {
+            configurarEnlacesFacebook();
             const contenedor = document.getElementById('contenedorTarjetas');
             contenedor.innerHTML = '';
 
             for (const rifa of listaRifas) {
                 const vendidos = (await obtenerVendidos(rifa.id)).length;
-                const disponibles = rifa.totalNumeros - vendidos;
+                const disponibles = Math.max(0, rifa.totalNumeros - vendidos);
 
                 const card = document.createElement('div');
                 card.className = 'tarjeta-rifa';
@@ -677,13 +961,14 @@
                         <div>
                             <div class="tarjeta-titulo">${rifa.titulo}</div>
                             <div class="tarjeta-premio">${rifa.premio}</div>
+                            <div class="tarjeta-limite">🔒 Máx. ${rifa.maxPorCompra} boletos por compra</div>
                         </div>
                         <div>
                             <div class="tarjeta-meta">
                                 <span>🎟️ ${rifa.totalNumeros} números</span>
                                 <span style="color: var(--accent);">✅ ${disponibles} libres</span>
                             </div>
-                            <button class="btn-entrar">Ver números disponibles →</button>
+                            <button type="button" class="btn-entrar">Ver números disponibles →</button>
                         </div>
                     </div>
                 `;
@@ -698,6 +983,7 @@
             rifaActual = listaRifas.find(r => r.id === rifaId);
             if (!rifaActual) return;
 
+            boletosSeleccionados = [];
             document.getElementById('vistaCatalogo').style.display = 'none';
             document.getElementById('vistaDetalleRifa').style.display = 'block';
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -706,74 +992,200 @@
             document.getElementById('detalleTitulo').innerText = rifaActual.titulo;
             document.getElementById('detalleDescripcion').innerText = rifaActual.premio;
             document.getElementById('detallePrecio').innerText = `$${rifaActual.precio}.00 MXN`;
+            document.getElementById('detalleMaxCompra').innerText = `${rifaActual.maxPorCompra} boletos`;
 
             await actualizarCuadricula();
         }
 
-        async function actualizarCuadricula() {
+        function alternarSeleccionBoleto(numeroIndex) {
+            if (!rifaActual) return;
+            if (boletosVendidosActuales.includes(numeroIndex)) return;
+
+            const indiceExistente = boletosSeleccionados.indexOf(numeroIndex);
+            if (indiceExistente !== -1) {
+                boletosSeleccionados.splice(indiceExistente, 1);
+            } else {
+                const maxPermitido = rifaActual.maxPorCompra;
+                if (boletosSeleccionados.length >= maxPermitido) {
+                    alert(`En "${rifaActual.titulo}" solo puedes seleccionar un máximo de ${maxPermitido} boletos por compra.`);
+                    return;
+                }
+                boletosSeleccionados.push(numeroIndex);
+                boletosSeleccionados.sort((a, b) => a - b);
+            }
+
+            actualizarBarraSeleccion();
+            pintarGridBoletos();
+        }
+
+        function limpiarSeleccion() {
+            boletosSeleccionados = [];
+            actualizarBarraSeleccion();
+            pintarGridBoletos();
+        }
+
+        function actualizarBarraSeleccion() {
+            if (!rifaActual) return;
+
+            const maxPermitido = rifaActual.maxPorCompra;
+            const cantidad = boletosSeleccionados.length;
+            const totalPagar = cantidad * rifaActual.precio;
+
+            document.getElementById('textoCantidadSeleccionados').innerText =
+                `Boletos seleccionados: ${cantidad} de ${maxPermitido} (máx. en esta rifa)`;
+
+            if (cantidad === 0) {
+                document.getElementById('textoBoletosSeleccionados').innerText =
+                    `Ningún boleto elegido todavía — Total: $0.00 MXN`;
+            } else {
+                const etiquetas = boletosSeleccionados
+                    .map(num => `#${formatearNumeroBoleto(num, rifaActual.totalNumeros)}`)
+                    .join(', ');
+                document.getElementById('textoBoletosSeleccionados').innerText =
+                    `Elegidos: ${etiquetas} — Total: $${totalPagar}.00 MXN`;
+            }
+
+            const agotada = boletosVendidosActuales.length >= rifaActual.totalNumeros;
+            document.getElementById('btnLimpiarSeleccion').disabled = cantidad === 0 || agotada;
+            document.getElementById('btnCobrarSeleccion').disabled = cantidad === 0 || agotada;
+        }
+
+        function pintarGridBoletos() {
             if (!rifaActual) return;
 
             const grid = document.getElementById('gridBoletos');
             grid.innerHTML = '';
 
-            const vendidos = await obtenerVendidos(rifaActual.id);
             const total = rifaActual.totalNumeros;
-            const digitos = total >= 1000 ? 3 : 2;
-
-            const cantVendidos = vendidos.length;
-            const cantLibres = total - cantVendidos;
-            const porcentaje = Math.round((cantVendidos / total) * 100);
-
-            document.getElementById('statLibres').innerText = cantLibres;
-            document.getElementById('statVendidos').innerText = cantVendidos;
-            document.getElementById('barraProgreso').style.width = `${porcentaje}%`;
 
             for (let i = 0; i < total; i++) {
-                const numFormateado = String(i).padStart(digitos, '0');
-                const estaVendido = vendidos.includes(i);
+                const numFormateado = formatearNumeroBoleto(i, total);
+                const estaVendido = boletosVendidosActuales.includes(i);
+                const estaSeleccionado = boletosSeleccionados.includes(i);
 
                 const btn = document.createElement('div');
-                btn.className = `boleto ${estaVendido ? 'ocupado' : 'libre'}`;
+                let claseEstado = 'libre';
+                if (estaVendido) {
+                    claseEstado = 'ocupado';
+                } else if (estaSeleccionado) {
+                    claseEstado = 'seleccionado';
+                }
+
+                btn.className = `boleto ${claseEstado}`;
                 btn.innerText = numFormateado;
 
                 if (!estaVendido) {
-                    btn.onclick = () => abrirModalPago(i, numFormateado);
+                    btn.onclick = () => alternarSeleccionBoleto(i);
                 }
 
                 grid.appendChild(btn);
             }
         }
 
+        async function actualizarCuadricula() {
+            if (!rifaActual) return;
+
+            const vendidos = await obtenerVendidos(rifaActual.id);
+            boletosVendidosActuales = vendidos;
+
+            // Quitar cualquier boleto que ya haya sido vendido
+            boletosSeleccionados = boletosSeleccionados.filter(num => !vendidos.includes(num));
+
+            const total = rifaActual.totalNumeros;
+            const cantVendidos = vendidos.length;
+            const cantLibres = Math.max(0, total - cantVendidos);
+            const porcentaje = Math.round((cantVendidos / total) * 100);
+            const agotada = cantLibres === 0;
+
+            document.getElementById('statLibres').innerText = cantLibres;
+            document.getElementById('statVendidos').innerText = cantVendidos;
+            document.getElementById('barraProgreso').style.width = `${porcentaje}%`;
+
+            // Mostrar aviso de sorteo en vivo cuando se agotan los boletos
+            const avisoSorteo = document.getElementById('avisoSorteoVivo');
+            const barraSeleccion = document.getElementById('barraSeleccion');
+            const tituloTablero = document.getElementById('tituloTableroBoletos');
+
+            if (agotada) {
+                avisoSorteo.style.display = 'block';
+                barraSeleccion.style.display = 'none';
+                tituloTablero.innerText = 'Todos los boletos vendidos — Sorteo en curso:';
+            } else {
+                avisoSorteo.style.display = 'none';
+                barraSeleccion.style.display = 'flex';
+                tituloTablero.innerText = `Selecciona hasta ${rifaActual.maxPorCompra} números de la suerte:`;
+            }
+
+            actualizarBarraSeleccion();
+            pintarGridBoletos();
+        }
+
         function volverAlCatalogo() {
             rifaActual = null;
+            boletosSeleccionados = [];
+            boletosVendidosActuales = [];
             document.getElementById('vistaDetalleRifa').style.display = 'none';
             document.getElementById('vistaCatalogo').style.display = 'block';
             cargarCatalogo();
         }
 
         // ==========================================
-        // MODAL DE PAGO CONECTADO A SERVER.JS
+        // MODAL DE COBRO CON DATOS DEL COMPRADOR
         // ==========================================
-        function abrirModalPago(numeroIndex, numeroTexto) {
-            numeroSeleccionado = numeroIndex;
+        function abrirModalCobro() {
+            if (!rifaActual || boletosSeleccionados.length === 0) return;
+
+            if (boletosSeleccionados.length > rifaActual.maxPorCompra) {
+                alert(`El máximo permitido en esta rifa es de ${rifaActual.maxPorCompra} boletos por compra.`);
+                return;
+            }
+
+            const etiquetas = boletosSeleccionados
+                .map(num => `#${formatearNumeroBoleto(num, rifaActual.totalNumeros)}`)
+                .join(', ');
+            const totalPagar = boletosSeleccionados.length * rifaActual.precio;
+
             document.getElementById('modalTituloRifa').innerText = rifaActual.titulo;
-            document.getElementById('modalNumeroTexto').innerText = `#${numeroTexto}`;
-            document.getElementById('modalPrecioTexto').innerText = `$${rifaActual.precio}.00 MXN`;
+            document.getElementById('modalNumeroTexto').innerText = etiquetas;
+            document.getElementById('modalPrecioTexto').innerText = `$${totalPagar}.00 MXN`;
             document.getElementById('modalPago').style.display = 'flex';
         }
 
         function cerrarModalPago() {
             if (procesandoPago) return;
-            numeroSeleccionado = null;
             document.getElementById('modalPago').style.display = 'none';
         }
 
         async function confirmarPago(metodo) {
-            if (numeroSeleccionado === null || !rifaActual || procesandoPago) return;
+            if (!rifaActual || boletosSeleccionados.length === 0 || procesandoPago) return;
+
+            const nombreInput = document.getElementById('inputNombreComprador');
+            const telefonoInput = document.getElementById('inputTelefonoComprador');
+            const nombre = nombreInput.value.trim();
+            const telefono = telefonoInput.value.trim();
+
+            if (!nombre) {
+                alert('Por favor escribe tu nombre completo.');
+                nombreInput.focus();
+                return;
+            }
+
+            if (!telefono) {
+                alert('Por favor escribe tu número de teléfono.');
+                telefonoInput.focus();
+                return;
+            }
+
+            if (boletosSeleccionados.length > rifaActual.maxPorCompra) {
+                alert(`Solo puedes comprar hasta ${rifaActual.maxPorCompra} boletos en "${rifaActual.titulo}".`);
+                return;
+            }
 
             procesandoPago = true;
             const botonesMetodo = document.querySelectorAll('.btn-metodo');
             botonesMetodo.forEach(b => b.disabled = true);
+
+            const totalCalculado = boletosSeleccionados.length * rifaActual.precio;
 
             try {
                 const respuesta = await fetch('/api/crear-pago', {
@@ -782,16 +1194,25 @@
                     body: JSON.stringify({
                         rifaId: rifaActual.id,
                         tituloRifa: rifaActual.titulo,
-                        numeroBoleto: numeroSeleccionado,
-                        precio: rifaActual.precio,
-                        metodoPago: metodo
+                        numerosBoletos: boletosSeleccionados,
+                        numeroBoleto: boletosSeleccionados[0],
+                        cantidadBoletos: boletosSeleccionados.length,
+                        maxPorCompra: rifaActual.maxPorCompra,
+                        precioUnitario: rifaActual.precio,
+                        precio: totalCalculado,
+                        metodoPago: metodo,
+                        comprador: {
+                            nombre,
+                            telefono
+                        }
                     })
                 });
 
                 const data = await respuesta.json();
+                const destinoPago = data.checkout_url || data.init_point;
 
-                if (respuesta.ok && data.init_point) {
-                    window.location.href = data.init_point;
+                if (respuesta.ok && destinoPago) {
+                    window.location.href = destinoPago;
                     return;
                 }
 
@@ -801,7 +1222,7 @@
                 );
             } catch (error) {
                 console.error('Error al crear el pago:', error);
-                alert('Error de conexión con server.js. Asegúrate de que el servidor esté encendido en http://localhost:3000.');
+                alert('Error de conexión con server.js. Asegúrate de que el servidor esté encendido.');
             } finally {
                 procesandoPago = false;
                 botonesMetodo.forEach(b => b.disabled = false);
