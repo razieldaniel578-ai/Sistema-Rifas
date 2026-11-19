@@ -4,17 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sorteos y Rifas - ¡Participa y Gana!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
-            --card-bg: rgba(255, 255, 255, 0.95);
-            --primary: #1e293b;
-            --accent: #10b981;
-            --accent-hover: #059669;
-            --gold: #f59e0b;
-            --danger: #ef4444;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
+            --bg-deep: #0b0f19;
+            --bg-elevated: #121827;
+            --surface: #ffffff;
+            --surface-soft: #f8fafc;
+            --ink-dark: #0f172a;
+            --ink-muted: #64748b;
+            --ink-light: #f8fafc;
+            --ink-soft: #94a3b8;
+            --gold: #d4a34a;
+            --gold-bright: #eab308;
+            --gold-soft: rgba(212, 163, 74, 0.14);
+            --emerald: #059669;
+            --emerald-bright: #10b981;
+            --emerald-soft: rgba(16, 185, 129, 0.12);
+            --rose: #dc2626;
+            --border-subtle: rgba(255, 255, 255, 0.09);
+            --border-gold: rgba(212, 163, 74, 0.35);
+            --shadow-card: 0 22px 45px -15px rgba(0, 0, 0, 0.45);
+            --shadow-hover: 0 28px 55px -12px rgba(212, 163, 74, 0.22);
         }
 
         * {
@@ -24,48 +37,83 @@
         }
 
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: var(--bg-gradient);
+            font-family: 'Plus Jakarta Sans', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background:
+                radial-gradient(circle at 15% 0%, rgba(212, 163, 74, 0.11) 0%, transparent 42%),
+                radial-gradient(circle at 88% 12%, rgba(16, 185, 129, 0.08) 0%, transparent 38%),
+                linear-gradient(180deg, #090d16 0%, #0f1524 55%, #0b0f19 100%);
             background-attachment: fixed;
-            color: #ffffff;
+            color: var(--ink-light);
             min-height: 100vh;
-            line-height: 1.5;
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Barra superior llamativa */
+        /* Barra superior elegante */
         .navbar {
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            color: white;
-            padding: 22px 25px;
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-subtle);
+            color: var(--ink-light);
+            padding: 18px 24px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+        }
+
+        .navbar-brand {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+        }
+
+        .logo-rifas {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--gold);
+            box-shadow: 0 0 16px rgba(212, 163, 74, 0.35);
+            flex-shrink: 0;
         }
 
         .navbar h1 {
-            font-size: 1.8rem;
-            letter-spacing: 0.5px;
-            display: flex;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(1.4rem, 3vw, 1.95rem);
+            font-weight: 800;
+            letter-spacing: 0.3px;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            gap: 10px;
+            color: #ffffff;
+        }
+
+        .navbar h1::after {
+            content: "";
+            display: block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--gold);
+            box-shadow: 0 0 12px var(--gold);
         }
 
         .navbar p {
-            color: #cbd5e1;
-            font-size: 1rem;
+            color: var(--ink-soft);
+            font-size: 0.96rem;
             margin-top: 6px;
+            font-weight: 400;
         }
 
         .container {
-            max-width: 1100px;
-            margin: 35px auto;
-            padding: 0 20px;
+            max-width: 1120px;
+            margin: 42px auto 64px;
+            padding: 0 22px;
         }
 
         /* =========================================
@@ -73,80 +121,96 @@
            ========================================= */
         .seccion-titulo {
             text-align: center;
-            margin-bottom: 35px;
+            margin-bottom: 40px;
         }
 
         .seccion-titulo h2 {
-            font-size: 2.2rem;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(1.85rem, 4vw, 2.5rem);
+            font-weight: 800;
             color: #ffffff;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.4);
-            margin-bottom: 8px;
+            letter-spacing: -0.2px;
+            margin-bottom: 10px;
         }
 
         .seccion-titulo p {
-            color: #94a3b8;
-            font-size: 1.1rem;
+            color: var(--ink-soft);
+            font-size: 1.02rem;
+            max-width: 540px;
+            margin: 0 auto;
         }
 
         .grid-rifas {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
+            gap: 28px;
         }
 
         .tarjeta-rifa {
-            background: var(--card-bg);
-            color: var(--text-main);
-            border-radius: 20px;
+            background: var(--surface);
+            color: var(--ink-dark);
+            border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: var(--shadow-card);
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, border-color 0.35s ease;
             cursor: pointer;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(15, 23, 42, 0.06);
             display: flex;
             flex-direction: column;
         }
 
         .tarjeta-rifa:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 45px rgba(16, 185, 129, 0.25);
-            border-color: var(--accent);
+            transform: translateY(-7px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--border-gold);
         }
 
         .tarjeta-imagen {
             position: relative;
-            height: 230px;
+            height: 224px;
             width: 100%;
-            background-color: #cbd5e1;
+            background-color: #1e293b;
             overflow: hidden;
+        }
+
+        .tarjeta-imagen::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(11, 15, 25, 0.05) 0%, rgba(11, 15, 25, 0.42) 100%);
+            pointer-events: none;
         }
 
         .tarjeta-imagen img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         .tarjeta-rifa:hover .tarjeta-imagen img {
-            transform: scale(1.08);
+            transform: scale(1.06);
         }
 
         .badge-precio {
             position: absolute;
-            top: 15px;
-            right: 15px;
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: white;
+            top: 16px;
+            right: 16px;
+            z-index: 2;
+            background: rgba(11, 15, 25, 0.88);
+            backdrop-filter: blur(8px);
+            color: #fde68a;
+            border: 1px solid rgba(212, 163, 74, 0.55);
             font-weight: 800;
             padding: 8px 16px;
-            border-radius: 30px;
-            font-size: 1.05rem;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.5);
+            border-radius: 999px;
+            font-size: 0.98rem;
+            letter-spacing: 0.2px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
         }
 
         .tarjeta-contenido {
-            padding: 25px;
+            padding: 26px;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
@@ -154,28 +218,32 @@
         }
 
         .tarjeta-titulo {
-            font-size: 1.4rem;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.42rem;
             font-weight: 800;
-            color: var(--primary);
+            color: var(--ink-dark);
             margin-bottom: 8px;
+            line-height: 1.25;
         }
 
         .tarjeta-premio {
-            color: var(--text-muted);
-            font-size: 0.98rem;
-            margin-bottom: 12px;
+            color: var(--ink-muted);
+            font-size: 0.95rem;
+            margin-bottom: 14px;
         }
 
         .tarjeta-limite {
-            display: inline-block;
-            background: #fef3c7;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #fffbeb;
             color: #92400e;
-            border: 1px solid #f59e0b;
-            font-size: 0.85rem;
+            border: 1px solid rgba(217, 119, 6, 0.28);
+            font-size: 0.83rem;
             font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 8px;
-            margin-bottom: 16px;
+            padding: 5px 12px;
+            border-radius: 999px;
+            margin-bottom: 18px;
         }
 
         .tarjeta-meta {
@@ -184,77 +252,159 @@
             align-items: center;
             padding-top: 15px;
             border-top: 1px solid #e2e8f0;
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             font-weight: 700;
-            color: var(--primary);
+            color: var(--ink-dark);
         }
 
         .btn-entrar {
             display: block;
             width: 100%;
             margin-top: 18px;
-            padding: 14px;
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            color: white;
+            padding: 14px 18px;
+            background: var(--ink-dark);
+            color: #ffffff;
             text-align: center;
-            border: none;
-            border-radius: 12px;
+            border: 1px solid rgba(212, 163, 74, 0.25);
+            border-radius: 14px;
             font-weight: 700;
-            font-size: 1.05rem;
+            font-size: 0.98rem;
+            letter-spacing: 0.2px;
             cursor: pointer;
-            transition: background 0.2s, transform 0.2s;
+            transition: background 0.25s ease, transform 0.2s ease, color 0.25s ease;
         }
 
         .tarjeta-rifa:hover .btn-entrar {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            background: linear-gradient(135deg, #c8963e 0%, #a97825 100%);
+            color: #0b0f19;
+            border-color: transparent;
         }
 
         /* Bloque de Facebook en la vista principal */
         .banner-facebook {
-            margin-top: 45px;
-            background: rgba(15, 23, 42, 0.88);
-            border: 1px solid rgba(59, 130, 246, 0.45);
-            border-radius: 20px;
-            padding: 28px;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+            margin-top: 52px;
+            background: linear-gradient(135deg, rgba(18, 24, 39, 0.96) 0%, rgba(23, 32, 53, 0.94) 100%);
+            border: 1px solid var(--border-gold);
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.38);
+            position: relative;
+            overflow: hidden;
         }
 
-        .banner-facebook-texto h3 {
-            font-size: 1.45rem;
+        .banner-facebook::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .banner-facebook-header {
+            margin-bottom: 24px;
+        }
+
+        .banner-facebook-header h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.52rem;
             color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .banner-facebook-header p {
+            color: #cbd5e1;
+            font-size: 0.97rem;
+            max-width: 760px;
+        }
+
+        .facebook-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            align-items: stretch;
+        }
+
+        .facebook-card {
+            background: rgba(11, 15, 25, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            border-radius: 18px;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .facebook-card-tag {
+            font-size: 0.78rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #fde68a;
             margin-bottom: 6px;
         }
 
-        .banner-facebook-texto p {
+        .facebook-card-nombre {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .facebook-card p {
             color: #cbd5e1;
-            font-size: 0.98rem;
-            max-width: 680px;
+            font-size: 0.93rem;
+        }
+
+        .facebook-qr-box {
+            background: rgba(11, 15, 25, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            border-radius: 18px;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 10px;
+        }
+
+        .facebook-qr-box img {
+            max-width: 240px;
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 163, 74, 0.35);
+        }
+
+        .facebook-qr-box span {
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            font-weight: 600;
         }
 
         .btn-facebook {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
-            background: linear-gradient(135deg, #1877f2 0%, #0d5ec4 100%);
+            background: linear-gradient(135deg, #1877f2 0%, #1258b8 100%);
             color: #ffffff;
             text-decoration: none;
-            font-weight: 800;
-            padding: 14px 22px;
+            font-weight: 700;
+            padding: 13px 20px;
             border-radius: 12px;
-            font-size: 1rem;
-            box-shadow: 0 6px 18px rgba(24, 119, 242, 0.4);
-            transition: transform 0.2s, opacity 0.2s;
-            white-space: nowrap;
+            font-size: 0.95rem;
+            box-shadow: 0 10px 24px rgba(24, 119, 242, 0.35);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .btn-facebook:hover {
             transform: translateY(-2px);
-            opacity: 0.95;
+            box-shadow: 0 14px 28px rgba(24, 119, 242, 0.45);
         }
 
         /* =========================================
@@ -262,11 +412,11 @@
            ========================================= */
         #vistaDetalleRifa {
             display: none;
-            animation: fadeIn 0.4s ease;
+            animation: fadeIn 0.35s ease;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
+            from { opacity: 0; transform: translateY(12px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -274,154 +424,164 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-subtle);
+            color: #e2e8f0;
+            padding: 11px 20px;
             border-radius: 12px;
             font-weight: 600;
+            font-size: 0.95rem;
             cursor: pointer;
-            margin-bottom: 25px;
-            transition: all 0.2s;
+            margin-bottom: 24px;
+            transition: all 0.2s ease;
         }
 
         .btn-volver:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateX(-4px);
+            background: rgba(255, 255, 255, 0.12);
+            border-color: var(--border-gold);
+            transform: translateX(-3px);
         }
 
         /* Cabecera de la rifa elegida */
         .detalle-header {
-            background: var(--card-bg);
-            color: var(--text-main);
-            border-radius: 20px;
+            background: var(--surface);
+            color: var(--ink-dark);
+            border-radius: 24px;
             padding: 30px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            box-shadow: var(--shadow-card);
             display: grid;
-            grid-template-columns: 240px 1fr;
+            grid-template-columns: 250px 1fr;
             gap: 30px;
             align-items: center;
-            margin-bottom: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 24px;
+            border: 1px solid rgba(15, 23, 42, 0.06);
         }
 
-        @media (max-width: 720px) {
+        @media (max-width: 740px) {
             .detalle-header {
                 grid-template-columns: 1fr;
                 text-align: center;
+                padding: 24px;
             }
         }
 
         .detalle-img {
             width: 100%;
-            height: 200px;
+            height: 205px;
             object-fit: cover;
-            border-radius: 14px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            border-radius: 18px;
+            box-shadow: 0 12px 24px rgba(15, 23, 42, 0.16);
         }
 
         .detalle-info h2 {
-            font-size: 2rem;
-            color: var(--primary);
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(1.6rem, 3.2vw, 2.15rem);
+            font-weight: 800;
+            color: var(--ink-dark);
             margin-bottom: 8px;
+            line-height: 1.2;
         }
 
         .detalle-info p {
-            color: var(--text-muted);
+            color: var(--ink-muted);
             margin-bottom: 18px;
-            font-size: 1.05rem;
+            font-size: 1rem;
         }
 
         .estadisticas-bar {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 15px;
+            gap: 10px;
+            margin-bottom: 16px;
             justify-content: flex-start;
         }
 
-        @media (max-width: 720px) {
+        @media (max-width: 740px) {
             .estadisticas-bar { justify-content: center; }
         }
 
         .stat-pill {
-            background: #f1f5f9;
-            border: 1px solid #cbd5e1;
+            background: var(--surface-soft);
+            border: 1px solid #e2e8f0;
             padding: 8px 14px;
-            border-radius: 10px;
-            font-size: 0.92rem;
+            border-radius: 12px;
+            font-size: 0.9rem;
             font-weight: 700;
-            color: var(--primary);
+            color: var(--ink-dark);
         }
 
         .stat-pill span {
-            color: var(--accent);
-            font-weight: 900;
+            color: var(--emerald);
+            font-weight: 800;
         }
 
         .barra-progreso-contenedor {
             width: 100%;
-            height: 12px;
+            height: 10px;
             background: #e2e8f0;
-            border-radius: 10px;
+            border-radius: 999px;
             overflow: hidden;
         }
 
         .barra-progreso-fill {
             height: 100%;
-            background: linear-gradient(90deg, #10b981 0%, #34d399 100%);
+            background: linear-gradient(90deg, #059669 0%, #d4a34a 100%);
             width: 0%;
-            transition: width 0.5s ease;
+            transition: width 0.45s ease;
         }
 
         /* Aviso de sorteo en vivo cuando se agotan los boletos */
         .aviso-sorteo-vivo {
             display: none;
-            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
             color: #78350f;
-            border: 2px solid #f59e0b;
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 15px 30px rgba(245, 158, 11, 0.25);
+            border: 1.5px solid rgba(217, 119, 6, 0.45);
+            border-radius: 22px;
+            padding: 26px 28px;
+            margin-bottom: 24px;
+            box-shadow: 0 18px 36px rgba(0, 0, 0, 0.28);
         }
 
         .aviso-sorteo-vivo h3 {
+            font-family: 'Playfair Display', Georgia, serif;
             font-size: 1.5rem;
             color: #92400e;
             margin-bottom: 8px;
         }
 
         .aviso-sorteo-vivo p {
-            font-size: 1rem;
+            font-size: 0.98rem;
             margin-bottom: 16px;
             font-weight: 600;
+            color: #78350f;
         }
 
         /* Barra de selección múltiple y cobro */
         .barra-seleccion {
-            background: #f8fafc;
-            border: 2px solid #10b981;
-            border-radius: 16px;
-            padding: 18px 22px;
-            margin-bottom: 22px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 1.5px solid rgba(16, 185, 129, 0.45);
+            border-radius: 20px;
+            padding: 20px 24px;
+            margin-bottom: 24px;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
-            gap: 16px;
+            gap: 18px;
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22);
         }
 
         .seleccion-resumen strong {
-            color: var(--primary);
-            font-size: 1.05rem;
+            color: var(--ink-dark);
+            font-size: 1.02rem;
+            font-weight: 800;
         }
 
         .seleccion-chips {
-            color: #065f46;
-            font-weight: 800;
-            font-size: 0.98rem;
+            color: var(--emerald);
+            font-weight: 700;
+            font-size: 0.95rem;
             margin-top: 4px;
         }
 
@@ -433,51 +593,55 @@
         }
 
         .btn-limpiar {
-            background: #e2e8f0;
+            background: #f1f5f9;
             color: #334155;
-            border: none;
-            padding: 12px 16px;
+            border: 1px solid #cbd5e1;
+            padding: 12px 18px;
             border-radius: 12px;
             font-weight: 700;
+            font-size: 0.95rem;
             cursor: pointer;
+            transition: background 0.2s ease;
         }
 
         .btn-limpiar:hover:not(:disabled) {
-            background: #cbd5e1;
+            background: #e2e8f0;
         }
 
         .btn-cobrar {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
             color: #ffffff;
             border: none;
             padding: 13px 24px;
             border-radius: 12px;
-            font-size: 1.05rem;
+            font-size: 1rem;
             font-weight: 800;
             cursor: pointer;
-            box-shadow: 0 6px 16px rgba(16, 185, 129, 0.35);
-            transition: transform 0.15s, opacity 0.2s;
+            box-shadow: 0 10px 22px rgba(5, 150, 105, 0.32);
+            transition: transform 0.18s ease, box-shadow 0.2s ease;
         }
 
         .btn-cobrar:hover:not(:disabled) {
             transform: translateY(-2px);
+            box-shadow: 0 14px 26px rgba(5, 150, 105, 0.42);
         }
 
         .btn-cobrar:disabled,
         .btn-limpiar:disabled {
-            opacity: 0.5;
+            opacity: 0.45;
             cursor: not-allowed;
             transform: none;
+            box-shadow: none;
         }
 
         /* Tablero de números */
         .tablero-contenedor {
-            background: var(--card-bg);
-            color: var(--text-main);
-            border-radius: 20px;
+            background: var(--surface);
+            color: var(--ink-dark);
+            border-radius: 24px;
             padding: 30px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: var(--shadow-card);
+            border: 1px solid rgba(15, 23, 42, 0.06);
         }
 
         .tablero-top {
@@ -485,23 +649,26 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px dashed #cbd5e1;
+            gap: 16px;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e2e8f0;
         }
 
         .tablero-top h3 {
-            font-size: 1.4rem;
-            color: var(--primary);
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.38rem;
+            font-weight: 800;
+            color: var(--ink-dark);
         }
 
         .leyenda {
             display: flex;
             flex-wrap: wrap;
             gap: 18px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 700;
+            color: #334155;
         }
 
         .leyenda-item {
@@ -511,42 +678,42 @@
         }
 
         .muestra-boleto {
-            width: 24px;
-            height: 24px;
-            border-radius: 6px;
+            width: 22px;
+            height: 22px;
+            border-radius: 7px;
         }
 
         .muestra-libre {
             background: #ecfdf5;
-            border: 2px solid #10b981;
+            border: 1.5px solid #10b981;
         }
 
         .muestra-seleccionado {
-            background: #10b981;
-            border: 2px solid #047857;
+            background: #0f172a;
+            border: 1.5px solid #d4a34a;
         }
 
         .muestra-ocupado {
             background: #f1f5f9;
-            border: 2px dashed #94a3b8;
+            border: 1.5px dashed #cbd5e1;
         }
 
         /* Cuadrícula de boletos */
         .grid-boletos {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(68px, 1fr));
-            gap: 14px;
-            padding: 10px 5px;
+            grid-template-columns: repeat(auto-fill, minmax(66px, 1fr));
+            gap: 12px;
+            padding: 6px 2px;
         }
 
         .boleto {
             position: relative;
             aspect-ratio: 1;
             border-radius: 14px;
-            font-size: 1.2rem;
-            font-weight: 900;
+            font-size: 1.12rem;
+            font-weight: 800;
             cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -554,28 +721,29 @@
         }
 
         .boleto.libre {
-            background: linear-gradient(145deg, #ffffff 0%, #ecfdf5 100%);
-            border: 2px solid #10b981;
+            background: linear-gradient(180deg, #ffffff 0%, #f0fdf4 100%);
+            border: 1.5px solid rgba(16, 185, 129, 0.55);
             color: #065f46;
-            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.15);
+            box-shadow: 0 4px 10px rgba(15, 23, 42, 0.04);
         }
 
         .boleto.libre:hover {
-            transform: translateY(-4px) scale(1.06);
-            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+            transform: translateY(-3px);
+            border-color: #059669;
+            box-shadow: 0 10px 18px rgba(16, 185, 129, 0.2);
         }
 
         .boleto.seleccionado {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            border: 2px solid #064e3b;
-            color: #ffffff;
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.45);
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            border: 2px solid var(--gold);
+            color: #fde68a;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 22px rgba(15, 23, 42, 0.28);
         }
 
         .boleto.ocupado {
-            background: #f1f5f9;
-            border: 2px dashed #cbd5e1;
+            background: #f8fafc;
+            border: 1.5px dashed #cbd5e1;
             color: #94a3b8;
             cursor: not-allowed;
             text-decoration: line-through;
@@ -586,9 +754,10 @@
            ========================================= */
         .modal-overlay {
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(15, 23, 42, 0.82);
-            backdrop-filter: blur(8px);
+            inset: 0;
+            background: rgba(9, 13, 22, 0.78);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             display: none;
             align-items: center;
             justify-content: center;
@@ -597,110 +766,118 @@
         }
 
         .modal-box {
-            background: #ffffff;
-            color: var(--text-main);
-            max-width: 470px;
+            background: var(--surface);
+            color: var(--ink-dark);
+            max-width: 465px;
             width: 100%;
-            border-radius: 24px;
-            padding: 30px;
+            border-radius: 26px;
+            padding: 32px;
             text-align: center;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
-            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
+            border: 1px solid rgba(212, 163, 74, 0.25);
+            animation: popIn 0.25s cubic-bezier(0.22, 1, 0.36, 1);
             max-height: 92vh;
             overflow-y: auto;
         }
 
         @keyframes popIn {
-            from { transform: scale(0.85); opacity: 0; }
+            from { transform: scale(0.92); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
 
         .ticket-seleccionado {
             display: inline-block;
-            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-            border: 2px dashed var(--gold);
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            border: 1.5px dashed rgba(217, 119, 6, 0.55);
             color: #92400e;
-            font-size: 1.35rem;
-            font-weight: 900;
+            font-size: 1.25rem;
+            font-weight: 800;
             padding: 12px 20px;
             border-radius: 16px;
             margin: 14px 0;
-            box-shadow: 0 6px 15px rgba(245, 158, 11, 0.2);
             word-break: break-word;
         }
 
         .form-comprador {
             text-align: left;
-            margin: 16px 0;
+            margin: 18px 0;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 14px;
         }
 
         .campo-grupo label {
             display: block;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 4px;
+            color: var(--ink-dark);
+            margin-bottom: 5px;
         }
 
         .campo-grupo input {
             width: 100%;
-            padding: 11px 14px;
-            border: 2px solid #cbd5e1;
+            padding: 12px 14px;
+            border: 1.5px solid #cbd5e1;
             border-radius: 12px;
-            font-size: 1rem;
-            color: var(--text-main);
-            transition: border-color 0.2s;
+            font-size: 0.98rem;
+            font-family: inherit;
+            color: var(--ink-dark);
+            background: #ffffff;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
 
         .campo-grupo input:focus {
             outline: none;
-            border-color: var(--accent);
+            border-color: var(--emerald);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
         }
 
         .metodos-pago {
             display: flex;
             flex-direction: column;
             gap: 12px;
-            margin: 20px 0 14px;
+            margin: 22px 0 14px;
         }
 
         .btn-metodo {
-            padding: 15px;
+            padding: 15px 18px;
             border: none;
-            border-radius: 12px;
-            font-size: 1.05rem;
+            border-radius: 14px;
+            font-size: 1rem;
             font-weight: 700;
             cursor: pointer;
-            transition: transform 0.15s, opacity 0.2s;
-            color: white;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: transform 0.16s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+            color: #ffffff;
+            box-shadow: 0 8px 18px rgba(15, 23, 42, 0.14);
         }
 
         .btn-metodo:hover:not(:disabled) {
-            transform: scale(1.02);
-            opacity: 0.95;
+            transform: translateY(-2px);
+            opacity: 0.97;
         }
 
         .btn-metodo:disabled {
-            opacity: 0.65;
+            opacity: 0.55;
             cursor: not-allowed;
+            transform: none;
         }
 
-        .btn-mp { background: linear-gradient(135deg, #009ee3 0%, #0081be 100%); }
-        .btn-card { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+        .btn-mp { background: linear-gradient(135deg, #009ee3 0%, #0077b6 100%); }
+        .btn-card { background: linear-gradient(135deg, #059669 0%, #047857 100%); }
 
         .btn-cerrar-modal {
             background: transparent;
             border: none;
-            color: var(--text-muted);
+            color: var(--ink-muted);
             font-weight: 700;
             cursor: pointer;
-            margin-top: 5px;
-            font-size: 0.95rem;
+            margin-top: 6px;
+            font-size: 0.92rem;
             text-decoration: underline;
+        }
+
+        .btn-cerrar-modal:hover {
+            color: var(--ink-dark);
         }
     </style>
 </head>
@@ -708,7 +885,10 @@
 
     <!-- Encabezado general -->
     <nav class="navbar">
-        <h1>🎟️ Sorteos y Rifas Oficiales</h1>
+        <div class="navbar-brand">
+            <img src="img/1000456049.jpg" alt="Logotipo La Suerte en Tus Manos Rifas" class="logo-rifas">
+            <h1>🎟️ Sorteos y Rifas Oficiales</h1>
+        </div>
         <p>Elige tu rifa favorita, selecciona tus números de la suerte y participa al instante</p>
     </nav>
 
@@ -729,15 +909,45 @@
 
             <!-- Sección de Facebook al final de las rifas activas -->
             <section class="banner-facebook" id="seccionFacebookPrincipal">
-                <div class="banner-facebook-texto">
+                <div class="banner-facebook-header">
                     <h3>📣 ¡No te pierdas ningún sorteo en Facebook!</h3>
                     <p>
-                        En nuestra página oficial publicamos las rifas activas, enviamos los avisos antes de entrar y anunciamos cuándo se realizan los sorteos.
+                        Aquí publicamos qué se va a rifar, los premios y los avisos antes de entrar a la rifa, y en nuestra página de transmisiones hacemos los en vivos donde se entregan los premios.
                     </p>
                 </div>
-                <a id="enlaceFacebookPrincipal" href="https://www.facebook.com/TU_PAGINA_OFICIAL" target="_blank" rel="noopener noreferrer" class="btn-facebook">
-                    👍 Ir a nuestra página de Facebook
-                </a>
+
+                <div class="facebook-grid">
+                    <div class="facebook-card">
+                        <div>
+                            <div class="facebook-card-tag">Página Oficial de Facebook</div>
+                            <div class="facebook-card-nombre">La suerte está en tus manos</div>
+                            <p>
+                                Publicamos las rifas que se van a hacer, qué objetos o premios se rifan, costos de boletos y avisos antes de entrar.
+                            </p>
+                        </div>
+                        <a id="enlacePaginaOficial" href="https://www.facebook.com/la.suerte.en.tus.manos.rifas/" target="_blank" rel="noopener noreferrer" class="btn-facebook">
+                            👍 Ir a La suerte está en tus manos
+                        </a>
+                    </div>
+
+                    <div class="facebook-card">
+                        <div>
+                            <div class="facebook-card-tag">Página para En Vivos de los Ganadores</div>
+                            <div class="facebook-card-nombre">Olla Sol</div>
+                            <p>
+                                Transmisiones en vivo de los sorteos y entrega de premios a los ganadores de las rifas.
+                            </p>
+                        </div>
+                        <a id="enlacePaginaEnVivos" href="https://www.facebook.com/profile.php?id=61585987586407" target="_blank" rel="noopener noreferrer" class="btn-facebook">
+                            🎥 Ir a Olla Sol (En vivos)
+                        </a>
+                    </div>
+
+                    <div class="facebook-qr-box">
+                        <img src="img/1000456224.jpg" alt="Códigos QR de La suerte está en tus manos y Olla Sol">
+                        <span>Códigos QR: La suerte está en tus manos y Olla Sol</span>
+                    </div>
+                </div>
             </section>
         </div>
 
@@ -753,10 +963,10 @@
             <div class="aviso-sorteo-vivo" id="avisoSorteoVivo">
                 <h3>🔴 ¡Boletos agotados! Comienza la rifa</h3>
                 <p>
-                    Ya se vendieron todos los boletos de esta rifa. El sorteo se realizará en vivo en nuestra página oficial de Facebook.
+                    Ya se vendieron todos los boletos de esta rifa. El sorteo y la entrega del premio se realizan en vivo en <strong>Olla Sol</strong> por Facebook.
                 </p>
-                <a id="enlaceFacebookEnVivo" href="https://www.facebook.com/TU_PAGINA_EN_VIVO" target="_blank" rel="noopener noreferrer" class="btn-facebook">
-                    🎥 Ver sorteo en vivo en Facebook
+                <a id="enlaceFacebookEnVivo" href="https://www.facebook.com/profile.php?id=61585987586407" target="_blank" rel="noopener noreferrer" class="btn-facebook">
+                    🎥 Ver en vivo en Olla Sol (Facebook)
                 </a>
             </div>
 
@@ -771,7 +981,7 @@
                         <div class="stat-pill">Costo boleto: <span id="detallePrecio">$10</span></div>
                         <div class="stat-pill">Máx. por compra: <span id="detalleMaxCompra">0</span></div>
                         <div class="stat-pill">Disponibles: <span id="statLibres">0</span></div>
-                        <div class="stat-pill">Vendidos: <span id="statVendidos" style="color: var(--danger);">0</span></div>
+                        <div class="stat-pill">Vendidos: <span id="statVendidos" style="color: var(--rose);">0</span></div>
                     </div>
 
                     <div class="barra-progreso-contenedor" title="Progreso de boletos vendidos">
@@ -829,13 +1039,13 @@
          ========================================== -->
     <div class="modal-overlay" id="modalPago">
         <div class="modal-box">
-            <h3 id="modalTituloRifa" style="color: var(--primary); font-size: 1.5rem;">Gran Rifa</h3>
-            <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 4px;">Completa tus datos y elige cómo pagar tus boletos</p>
+            <h3 id="modalTituloRifa" style="font-family: 'Playfair Display', Georgia, serif; color: var(--ink-dark); font-size: 1.55rem;">Gran Rifa</h3>
+            <p style="color: var(--ink-muted); font-size: 0.94rem; margin-top: 4px;">Completa tus datos y elige cómo pagar tus boletos</p>
 
             <div class="ticket-seleccionado" id="modalNumeroTexto">#00</div>
 
-            <p style="font-size: 1.15rem; font-weight: 600;">
-                Total a pagar: <strong id="modalPrecioTexto" style="color: var(--accent);">$0.00 MXN</strong>
+            <p style="font-size: 1.12rem; font-weight: 700; color: var(--ink-dark);">
+                Total a pagar: <strong id="modalPrecioTexto" style="color: var(--emerald);">$0.00 MXN</strong>
             </p>
 
             <div class="form-comprador">
@@ -865,10 +1075,9 @@
     <script>
         // ==========================================
         // ENLACES OFICIALES DE FACEBOOK
-        // Reemplaza estas URLs por las de tus páginas
         // ==========================================
-        const URL_FACEBOOK_PRINCIPAL = "https://www.facebook.com/TU_PAGINA_OFICIAL";
-        const URL_FACEBOOK_EN_VIVO = "https://www.facebook.com/TU_PAGINA_EN_VIVO";
+        const URL_PAGINA_OFICIAL = "https://www.facebook.com/la.suerte.en.tus.manos.rifas/"; // La suerte está en tus manos
+        const URL_PAGINA_EN_VIVOS = "https://www.facebook.com/profile.php?id=61585987586407"; // Olla Sol
 
         // ==========================================
         // BASE DE DATOS DE TUS RIFAS
@@ -882,7 +1091,7 @@
                 precio: 10,
                 totalNumeros: 10,
                 maxPorCompra: 5,
-                imagen: "https://images.unsplash.com/photo-1527281400683-1aae777175f8?auto=format&fit=crop&w=600&q=80"
+                imagen: "img/1000456058.jpg"
             },
             {
                 id: "rifa_tequila",
@@ -891,7 +1100,7 @@
                 precio: 15,
                 totalNumeros: 50,
                 maxPorCompra: 2,
-                imagen: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=600&q=80"
+                imagen: "img/1000456059.jpg"
             },
             {
                 id: "rifa_efectivo",
@@ -915,10 +1124,12 @@
         }
 
         function configurarEnlacesFacebook() {
-            const linkPrincipal = document.getElementById('enlaceFacebookPrincipal');
-            const linkEnVivo = document.getElementById('enlaceFacebookEnVivo');
-            if (linkPrincipal) linkPrincipal.href = URL_FACEBOOK_PRINCIPAL;
-            if (linkEnVivo) linkEnVivo.href = URL_FACEBOOK_EN_VIVO;
+            const linkOficial = document.getElementById('enlacePaginaOficial');
+            const linkEnVivos = document.getElementById('enlacePaginaEnVivos');
+            const linkEnVivoAviso = document.getElementById('enlaceFacebookEnVivo');
+            if (linkOficial) linkOficial.href = URL_PAGINA_OFICIAL;
+            if (linkEnVivos) linkEnVivos.href = URL_PAGINA_EN_VIVOS;
+            if (linkEnVivoAviso) linkEnVivoAviso.href = URL_PAGINA_EN_VIVOS;
         }
 
         // Consulta al backend los boletos vendidos de una rifa
@@ -966,7 +1177,7 @@
                         <div>
                             <div class="tarjeta-meta">
                                 <span>🎟️ ${rifa.totalNumeros} números</span>
-                                <span style="color: var(--accent);">✅ ${disponibles} libres</span>
+                                <span style="color: var(--emerald);">✅ ${disponibles} libres</span>
                             </div>
                             <button type="button" class="btn-entrar">Ver números disponibles →</button>
                         </div>
