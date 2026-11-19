@@ -243,7 +243,19 @@
             font-weight: 700;
             padding: 5px 12px;
             border-radius: 999px;
-            margin-bottom: 18px;
+            margin-bottom: 12px;
+        }
+
+        .tarjeta-estado-extra {
+            font-size: 0.84rem;
+            font-weight: 700;
+            color: #92400e;
+            background: #fef3c7;
+            border: 1px solid rgba(217, 119, 6, 0.35);
+            padding: 7px 12px;
+            border-radius: 10px;
+            margin-bottom: 14px;
+            display: none;
         }
 
         .tarjeta-meta {
@@ -540,7 +552,7 @@
             transition: width 0.45s ease;
         }
 
-        /* Aviso de sorteo en vivo cuando se agotan los boletos */
+        /* Aviso de sorteo en vivo y cuenta regresiva de 24h al agotarse los boletos */
         .aviso-sorteo-vivo {
             display: none;
             background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
@@ -561,9 +573,88 @@
 
         .aviso-sorteo-vivo p {
             font-size: 0.98rem;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             font-weight: 600;
             color: #78350f;
+        }
+
+        .reloj-regresiva-box {
+            display: inline-flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+            background: #0f172a;
+            color: #fde68a;
+            border: 1.5px solid var(--gold);
+            padding: 12px 18px;
+            border-radius: 14px;
+            margin-bottom: 16px;
+            font-weight: 800;
+        }
+
+        .reloj-tiempo {
+            font-family: 'Plus Jakarta Sans', monospace;
+            font-size: 1.35rem;
+            letter-spacing: 1px;
+            color: #ffffff;
+        }
+
+        /* Cuadro de 3 ganadores por rifa (solo nombres) */
+        .ganadores-rifa-box {
+            display: none;
+            background: var(--surface);
+            color: var(--ink-dark);
+            border: 1.5px solid var(--border-gold);
+            border-radius: 22px;
+            padding: 26px 28px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-card);
+        }
+
+        .ganadores-rifa-box h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.45rem;
+            color: var(--ink-dark);
+            margin-bottom: 6px;
+        }
+
+        .ganadores-rifa-box > p {
+            color: var(--ink-muted);
+            font-size: 0.94rem;
+            margin-bottom: 18px;
+        }
+
+        .grid-ganadores {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 14px;
+        }
+
+        .ganador-puesto {
+            background: var(--surface-soft);
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 16px 18px;
+        }
+
+        .ganador-puesto.oro {
+            background: #fffbeb;
+            border-color: rgba(212, 163, 74, 0.55);
+        }
+
+        .ganador-medalla {
+            font-size: 0.82rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            color: #92400e;
+            margin-bottom: 4px;
+        }
+
+        .ganador-nombre {
+            font-size: 1.12rem;
+            font-weight: 800;
+            color: var(--ink-dark);
         }
 
         /* Barra de selección múltiple y cobro */
@@ -758,8 +849,31 @@
             text-decoration: line-through;
         }
 
+        /* Pie discreto con acceso al panel de organizador */
+        .pie-organizador {
+            margin-top: 44px;
+            text-align: center;
+        }
+
+        .btn-organizador {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-subtle);
+            color: var(--ink-soft);
+            padding: 9px 16px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-organizador:hover {
+            color: #ffffff;
+            border-color: var(--border-gold);
+        }
+
         /* =========================================
-           MODAL DE PAGO Y DATOS DEL COMPRADOR
+           MODAL DE PAGO, DATOS Y PANEL ADMIN
            ========================================= */
         .modal-overlay {
             position: fixed;
@@ -777,7 +891,7 @@
         .modal-box {
             background: var(--surface);
             color: var(--ink-dark);
-            max-width: 465px;
+            max-width: 485px;
             width: 100%;
             border-radius: 26px;
             padding: 32px;
@@ -823,7 +937,8 @@
             margin-bottom: 5px;
         }
 
-        .campo-grupo input {
+        .campo-grupo input,
+        .campo-grupo select {
             width: 100%;
             padding: 12px 14px;
             border: 1.5px solid #cbd5e1;
@@ -835,7 +950,8 @@
             transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .campo-grupo input:focus {
+        .campo-grupo input:focus,
+        .campo-grupo select:focus {
             outline: none;
             border-color: var(--emerald);
             box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
@@ -887,6 +1003,27 @@
 
         .btn-cerrar-modal:hover {
             color: var(--ink-dark);
+        }
+
+        .lista-participantes-admin {
+            text-align: left;
+            margin-top: 16px;
+            max-height: 220px;
+            overflow-y: auto;
+            background: var(--surface-soft);
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 12px;
+            font-size: 0.86rem;
+        }
+
+        .participante-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .participante-item:last-child {
+            border-bottom: none;
         }
     </style>
 </head>
@@ -970,15 +1107,21 @@
                 ← Volver a todas las rifas
             </button>
 
-            <!-- Aviso cuando se agotan todos los boletos -->
+            <!-- Aviso y cuenta regresiva de 24h cuando se agotan todos los boletos -->
             <div class="aviso-sorteo-vivo" id="avisoSorteoVivo">
-                <h3>🔴 ¡Boletos agotados! Comienza la rifa</h3>
-                <p>
-                    Ya se vendieron todos los boletos de esta rifa. El sorteo y la entrega del premio se realizan en vivo en <strong>Olla Sol</strong> por Facebook.
+                <h3>🔴 ¡Boletos agotados! Comienza la rifa en 24 horas</h3>
+                <p id="textoAvisoAgotada">
+                    Ya se vendieron todos los boletos disponibles de esta rifa. El sorteo y la entrega de premios se realizarán en vivo en <strong>Olla Sol</strong> por Facebook al terminar la cuenta regresiva de 24 horas.
                 </p>
-                <a id="enlaceFacebookEnVivo" href="https://www.facebook.com/profile.php?id=61585987586407" target="_blank" rel="noopener noreferrer" class="btn-facebook">
-                    🎥 Ver en vivo en Olla Sol (Facebook)
-                </a>
+                <div class="reloj-regresiva-box">
+                    <span>⏳ Tiempo para el sorteo en vivo:</span>
+                    <span class="reloj-tiempo" id="relojCuentaRegresiva">24:00:00</span>
+                </div>
+                <div>
+                    <a id="enlaceFacebookEnVivo" href="https://www.facebook.com/profile.php?id=61585987586407" target="_blank" rel="noopener noreferrer" class="btn-facebook">
+                        🎥 Ver en vivo en Olla Sol (Facebook)
+                    </a>
+                </div>
             </div>
 
             <!-- Cabecera de la rifa elegida -->
@@ -1000,6 +1143,26 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Cuadro de 3 ganadores por rifa (solo nombres) -->
+            <section class="ganadores-rifa-box" id="seccionGanadoresRifa">
+                <h3>🏆 Ganadores de esta rifa</h3>
+                <p>Resultados oficiales del sorteo (1.er, 2.º y 3.er lugar).</p>
+                <div class="grid-ganadores">
+                    <div class="ganador-puesto oro">
+                        <div class="ganador-medalla">🥇 1.er lugar</div>
+                        <div class="ganador-nombre" id="ganadorPrimerLugar">—</div>
+                    </div>
+                    <div class="ganador-puesto">
+                        <div class="ganador-medalla">🥈 2.º lugar</div>
+                        <div class="ganador-nombre" id="ganadorSegundoLugar">—</div>
+                    </div>
+                    <div class="ganador-puesto">
+                        <div class="ganador-medalla">🥉 3.er lugar</div>
+                        <div class="ganador-nombre" id="ganadorTercerLugar">—</div>
+                    </div>
+                </div>
+            </section>
 
             <!-- Barra de boletos seleccionados y botón Cobrar -->
             <div class="barra-seleccion" id="barraSeleccion">
@@ -1043,6 +1206,12 @@
             </div>
         </div>
 
+        <div class="pie-organizador">
+            <button type="button" class="btn-organizador" onclick="abrirModalOrganizador()">
+                🔐 Panel de organizador (Ganadores y participantes)
+            </button>
+        </div>
+
     </div>
 
     <!-- ==========================================
@@ -1080,6 +1249,58 @@
             </div>
 
             <button type="button" class="btn-cerrar-modal" onclick="cerrarModalPago()">Cancelar y modificar boletos</button>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         MODAL DE ORGANIZADOR (GANADORES Y REGISTROS)
+         ========================================== -->
+    <div class="modal-overlay" id="modalOrganizador">
+        <div class="modal-box">
+            <h3 style="font-family: 'Playfair Display', Georgia, serif; color: var(--ink-dark); font-size: 1.5rem;">🏆 Panel de Organizador</h3>
+            <p style="color: var(--ink-muted); font-size: 0.9rem; margin-top: 4px;">
+                Registra los 3 ganadores (solo nombre) o consulta participantes
+            </p>
+
+            <div class="form-comprador">
+                <div class="campo-grupo">
+                    <label for="adminClaveInput">Clave de administrador</label>
+                    <input type="password" id="adminClaveInput" placeholder="Ej. rifas2026">
+                </div>
+                <div class="campo-grupo">
+                    <label for="adminRifaSelect">Rifa</label>
+                    <select id="adminRifaSelect" onchange="cargarGanadoresEnFormularioAdmin()">
+                        <option value="rifa_whisky">Gran Rifa: Combo Whisky Especial</option>
+                        <option value="rifa_tequila">Rifa Express: Tequila & Botana</option>
+                        <option value="rifa_efectivo">Gran Rifa en Efectivo ($1,000 MXN)</option>
+                    </select>
+                </div>
+                <div class="campo-grupo">
+                    <label for="inputGanador1">1.er lugar (solo nombre)</label>
+                    <input type="text" id="inputGanador1" placeholder="Nombre del 1.er lugar">
+                </div>
+                <div class="campo-grupo">
+                    <label for="inputGanador2">2.º lugar (solo nombre)</label>
+                    <input type="text" id="inputGanador2" placeholder="Nombre del 2.º lugar">
+                </div>
+                <div class="campo-grupo">
+                    <label for="inputGanador3">3.er lugar (solo nombre)</label>
+                    <input type="text" id="inputGanador3" placeholder="Nombre del 3.er lugar">
+                </div>
+            </div>
+
+            <div class="metodos-pago" style="margin-top: 12px;">
+                <button type="button" class="btn-metodo btn-card" onclick="guardarGanadoresAdmin()">
+                    💾 Guardar 3 ganadores de esta rifa
+                </button>
+                <button type="button" class="btn-metodo btn-mp" onclick="verParticipantesAdmin()">
+                    📋 Ver participantes y boletos registrados
+                </button>
+            </div>
+
+            <div id="listaParticipantesAdmin" class="lista-participantes-admin" style="display: none;"></div>
+
+            <button type="button" class="btn-cerrar-modal" onclick="cerrarModalOrganizador()">Cerrar panel</button>
         </div>
     </div>
 
@@ -1140,10 +1361,20 @@
         let boletosVendidosActuales = [];
         let boletosSeleccionados = [];
         let procesandoPago = false;
+        let intervaloCuentaRegresiva = null;
+        let fechaSorteoActualMs = null;
 
         function formatearNumeroBoleto(num, totalNumeros) {
             const digitos = totalNumeros >= 1000 ? 3 : 2;
             return String(num).padStart(digitos, '0');
+        }
+
+        function formatearDuracion(ms) {
+            const totalSegundos = Math.max(0, Math.floor(ms / 1000));
+            const horas = Math.floor(totalSegundos / 3600);
+            const minutos = Math.floor((totalSegundos % 3600) / 60);
+            const segundos = totalSegundos % 60;
+            return `${String(horas).padStart(2, '0')}:${String(minutos).padStart(2, '0')}:${String(segundos).padStart(2, '0')}`;
         }
 
         function configurarMultimediaYEnlaces() {
@@ -1180,10 +1411,87 @@
             }
         }
 
+        // Consulta estado de agotado / cuenta regresiva de 24h
+        async function obtenerEstadoRifa(rifaId) {
+            try {
+                const respuesta = await fetch(`/api/estado-rifa/${encodeURIComponent(rifaId)}`);
+                if (!respuesta.ok) return null;
+                return await respuesta.json();
+            } catch (error) {
+                console.error('Error al obtener estado de rifa:', error);
+                return null;
+            }
+        }
+
+        // Consulta ganadores de una rifa (1er, 2do y 3er lugar - solo nombres)
+        async function obtenerGanadores(rifaId) {
+            try {
+                const respuesta = await fetch(`/api/ganadores/${encodeURIComponent(rifaId)}`);
+                if (!respuesta.ok) return null;
+                return await respuesta.json();
+            } catch (error) {
+                console.error('Error al obtener ganadores:', error);
+                return null;
+            }
+        }
+
+        function detenerCuentaRegresiva() {
+            if (intervaloCuentaRegresiva) {
+                clearInterval(intervaloCuentaRegresiva);
+                intervaloCuentaRegresiva = null;
+            }
+            fechaSorteoActualMs = null;
+        }
+
+        function iniciarCuentaRegresiva(fechaSorteoIso) {
+            detenerCuentaRegresiva();
+            if (!fechaSorteoIso) return;
+
+            fechaSorteoActualMs = new Date(fechaSorteoIso).getTime();
+            const relojEl = document.getElementById('relojCuentaRegresiva');
+            const avisoEl = document.getElementById('textoAvisoAgotada');
+
+            const actualizarReloj = () => {
+                const restante = Math.max(0, fechaSorteoActualMs - Date.now());
+                if (relojEl) {
+                    relojEl.innerText = formatearDuracion(restante);
+                }
+                if (restante <= 0 && avisoEl) {
+                    avisoEl.innerHTML = '¡Se cumplió el tiempo de espera de 24 horas! La rifa está comenzando en vivo en <strong>Olla Sol</strong> por Facebook.';
+                }
+            };
+
+            actualizarReloj();
+            intervaloCuentaRegresiva = setInterval(actualizarReloj, 1000);
+        }
+
+        async function renderizarGanadoresRifa(rifaId) {
+            const box = document.getElementById('seccionGanadoresRifa');
+            const g1 = document.getElementById('ganadorPrimerLugar');
+            const g2 = document.getElementById('ganadorSegundoLugar');
+            const g3 = document.getElementById('ganadorTercerLugar');
+
+            const datos = await obtenerGanadores(rifaId);
+            const n1 = datos && datos.primerLugar ? datos.primerLugar.trim() : '';
+            const n2 = datos && datos.segundoLugar ? datos.segundoLugar.trim() : '';
+            const n3 = datos && datos.tercerLugar ? datos.tercerLugar.trim() : '';
+
+            if (!n1 && !n2 && !n3) {
+                box.style.display = 'none';
+                return;
+            }
+
+            g1.innerText = n1 || 'Por anunciar';
+            g2.innerText = n2 || 'Por anunciar';
+            g3.innerText = n3 || 'Por anunciar';
+            box.style.display = 'block';
+        }
+
         // ==========================================
         // RENDERIZAR VISTA 1: TARJETAS
         // ==========================================
         async function cargarCatalogo() {
+            detenerCuentaRegresiva();
             configurarMultimediaYEnlaces();
             const contenedor = document.getElementById('contenedorTarjetas');
             contenedor.innerHTML = '';
@@ -1191,6 +1499,16 @@
             for (const rifa of listaRifas) {
                 const vendidos = (await obtenerVendidos(rifa.id)).length;
                 const disponibles = Math.max(0, rifa.totalNumeros - vendidos);
+                const estado = await obtenerEstadoRifa(rifa.id);
+                const ganadores = await obtenerGanadores(rifa.id);
+
+                let textoExtra = '';
+                if (ganadores && (ganadores.primerLugar || ganadores.segundoLugar || ganadores.tercerLugar)) {
+                    textoExtra = '🏆 Ganadores publicados — Entra para ver resultados';
+                } else if (disponibles === 0 && estado && estado.fechaSorteo) {
+                    const rest = Math.max(0, new Date(estado.fechaSorteo).getTime() - Date.now());
+                    textoExtra = `⏳ Boletos agotados — Sorteo en vivo en ${formatearDuracion(rest)}`;
+                }
 
                 const card = document.createElement('div');
                 card.className = 'tarjeta-rifa';
@@ -1206,6 +1524,7 @@
                             <div class="tarjeta-titulo">${rifa.titulo}</div>
                             <div class="tarjeta-premio">${rifa.premio}</div>
                             <div class="tarjeta-limite">🔒 Máx. ${rifa.maxPorCompra} boletos por compra</div>
+                            <div class="tarjeta-estado-extra" style="${textoExtra ? 'display: block;' : ''}">${textoExtra}</div>
                         </div>
                         <div>
                             <div class="tarjeta-meta">
@@ -1238,6 +1557,7 @@
             document.getElementById('detallePrecio').innerText = `$${rifaActual.precio}.00 MXN`;
             document.getElementById('detalleMaxCompra').innerText = `${rifaActual.maxPorCompra} boletos`;
 
+            await renderizarGanadoresRifa(rifaActual.id);
             await actualizarCuadricula();
         }
 
@@ -1345,7 +1665,7 @@
             document.getElementById('statVendidos').innerText = cantVendidos;
             document.getElementById('barraProgreso').style.width = `${porcentaje}%`;
 
-            // Mostrar aviso de sorteo en vivo cuando se agotan los boletos
+            // Mostrar aviso y cuenta regresiva de 24h cuando se agotan los boletos
             const avisoSorteo = document.getElementById('avisoSorteoVivo');
             const barraSeleccion = document.getElementById('barraSeleccion');
             const tituloTablero = document.getElementById('tituloTableroBoletos');
@@ -1353,8 +1673,17 @@
             if (agotada) {
                 avisoSorteo.style.display = 'block';
                 barraSeleccion.style.display = 'none';
-                tituloTablero.innerText = 'Todos los boletos vendidos — Sorteo en curso:';
+                tituloTablero.innerText = 'Todos los boletos vendidos — Cuenta regresiva de 24h activa:';
+
+                const estadoRifa = await obtenerEstadoRifa(rifaActual.id);
+                if (estadoRifa && estadoRifa.fechaSorteo) {
+                    iniciarCuentaRegresiva(estadoRifa.fechaSorteo);
+                } else {
+                    const fallbackSorteo = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
+                    iniciarCuentaRegresiva(fallbackSorteo);
+                }
             } else {
+                detenerCuentaRegresiva();
                 avisoSorteo.style.display = 'none';
                 barraSeleccion.style.display = 'flex';
                 tituloTablero.innerText = `Selecciona hasta ${rifaActual.maxPorCompra} números de la suerte:`;
@@ -1365,6 +1694,7 @@
         }
 
         function volverAlCatalogo() {
+            detenerCuentaRegresiva();
             rifaActual = null;
             boletosSeleccionados = [];
             boletosVendidosActuales = [];
@@ -1470,6 +1800,115 @@
             } finally {
                 procesandoPago = false;
                 botonesMetodo.forEach(b => b.disabled = false);
+            }
+        }
+
+        // ==========================================
+        // PANEL DE ORGANIZADOR (GANADORES Y REGISTROS)
+        // ==========================================
+        async function cargarGanadoresEnFormularioAdmin() {
+            const rifaId = document.getElementById('adminRifaSelect').value;
+            const datos = await obtenerGanadores(rifaId);
+            document.getElementById('inputGanador1').value = (datos && datos.primerLugar) || '';
+            document.getElementById('inputGanador2').value = (datos && datos.segundoLugar) || '';
+            document.getElementById('inputGanador3').value = (datos && datos.tercerLugar) || '';
+        }
+
+        async function abrirModalOrganizador() {
+            const select = document.getElementById('adminRifaSelect');
+            if (rifaActual) {
+                select.value = rifaActual.id;
+            }
+            document.getElementById('listaParticipantesAdmin').style.display = 'none';
+            document.getElementById('listaParticipantesAdmin').innerHTML = '';
+            await cargarGanadoresEnFormularioAdmin();
+            document.getElementById('modalOrganizador').style.display = 'flex';
+        }
+
+        function cerrarModalOrganizador() {
+            document.getElementById('modalOrganizador').style.display = 'none';
+        }
+
+        async function guardarGanadoresAdmin() {
+            const adminKey = document.getElementById('adminClaveInput').value.trim();
+            const rifaId = document.getElementById('adminRifaSelect').value;
+            const primerLugar = document.getElementById('inputGanador1').value.trim();
+            const segundoLugar = document.getElementById('inputGanador2').value.trim();
+            const tercerLugar = document.getElementById('inputGanador3').value.trim();
+
+            if (!adminKey) {
+                alert('Escribe tu clave de administrador.');
+                return;
+            }
+
+            try {
+                const resp = await fetch(`/api/ganadores/${encodeURIComponent(rifaId)}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-admin-key': adminKey
+                    },
+                    body: JSON.stringify({ primerLugar, segundoLugar, tercerLugar })
+                });
+
+                const data = await resp.json();
+                if (!resp.ok) {
+                    alert(data.error || 'No se pudieron guardar los ganadores.');
+                    return;
+                }
+
+                alert('Ganadores guardados correctamente.');
+                if (rifaActual && rifaActual.id === rifaId) {
+                    await renderizarGanadoresRifa(rifaId);
+                }
+            } catch (err) {
+                console.error('Error guardando ganadores:', err);
+                alert('Error de conexión con el servidor.');
+            }
+        }
+
+        async function verParticipantesAdmin() {
+            const adminKey = document.getElementById('adminClaveInput').value.trim();
+            const rifaId = document.getElementById('adminRifaSelect').value;
+            const contenedor = document.getElementById('listaParticipantesAdmin');
+
+            if (!adminKey) {
+                alert('Escribe tu clave de administrador para ver los participantes.');
+                return;
+            }
+
+            try {
+                const resp = await fetch(`/api/registros?key=${encodeURIComponent(adminKey)}`);
+                if (!resp.ok) {
+                    alert('Clave incorrecta o sin autorización.');
+                    return;
+                }
+
+                const registros = await resp.json();
+                const filtrados = Array.isArray(registros)
+                    ? registros.filter(r => r.rifaId === rifaId)
+                    : [];
+
+                contenedor.style.display = 'block';
+                if (filtrados.length === 0) {
+                    contenedor.innerHTML = '<div>No hay registros guardados para esta rifa todavía.</div>';
+                    return;
+                }
+
+                contenedor.innerHTML = filtrados.map(item => {
+                    const nombre = item.comprador?.nombre || 'Sin nombre';
+                    const tel = item.comprador?.telefono || 'Sin teléfono';
+                    const boletos = Array.isArray(item.numerosBoletos) ? item.numerosBoletos.join(', ') : '';
+                    return `
+                        <div class="participante-item">
+                            <strong>${nombre}</strong> — Tel: ${tel}<br>
+                            <span>Boletos: #${boletos} | Total: $${item.totalMonto || 0}</span>
+                        </div>
+                    `;
+                }).join('');
+            } catch (err) {
+                console.error('Error al consultar registros:', err);
+                alert('Error al obtener los registros.');
             }
         }
 
