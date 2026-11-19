@@ -72,8 +72,8 @@
         }
 
         .logo-rifas {
-            width: 52px;
-            height: 52px;
+            width: 54px;
+            height: 54px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid var(--gold);
@@ -330,11 +330,20 @@
             background: rgba(11, 15, 25, 0.65);
             border: 1px solid rgba(255, 255, 255, 0.09);
             border-radius: 18px;
-            padding: 22px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            gap: 16px;
+            gap: 14px;
+        }
+
+        .facebook-card-img {
+            width: 100%;
+            height: 155px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 163, 74, 0.25);
+            margin-bottom: 12px;
         }
 
         .facebook-card-tag {
@@ -343,37 +352,37 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
             color: #fde68a;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
         .facebook-card-nombre {
             font-family: 'Playfair Display', Georgia, serif;
-            font-size: 1.3rem;
+            font-size: 1.28rem;
             font-weight: 800;
             color: #ffffff;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .facebook-card p {
             color: #cbd5e1;
-            font-size: 0.93rem;
+            font-size: 0.92rem;
         }
 
         .facebook-qr-box {
             background: rgba(11, 15, 25, 0.65);
             border: 1px solid rgba(255, 255, 255, 0.09);
             border-radius: 18px;
-            padding: 18px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .facebook-qr-box img {
-            max-width: 240px;
+            max-width: 250px;
             width: 100%;
             height: auto;
             border-radius: 12px;
@@ -381,9 +390,9 @@
         }
 
         .facebook-qr-box span {
-            font-size: 0.85rem;
-            color: #cbd5e1;
-            font-weight: 600;
+            font-size: 0.9rem;
+            color: #fde68a;
+            font-weight: 700;
         }
 
         .btn-facebook {
@@ -395,9 +404,9 @@
             color: #ffffff;
             text-decoration: none;
             font-weight: 700;
-            padding: 13px 20px;
+            padding: 13px 18px;
             border-radius: 12px;
-            font-size: 0.95rem;
+            font-size: 0.94rem;
             box-shadow: 0 10px 24px rgba(24, 119, 242, 0.35);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
@@ -886,7 +895,7 @@
     <!-- Encabezado general -->
     <nav class="navbar">
         <div class="navbar-brand">
-            <img id="logoRifasImg" src="" alt="Logotipo La Suerte en Tus Manos Rifas" class="logo-rifas">
+            <img id="logoRifasImg" src="" alt="Logotipo de Rifas" class="logo-rifas">
             <h1>🎟️ Sorteos y Rifas Oficiales</h1>
         </div>
         <p>Elige tu rifa favorita, selecciona tus números de la suerte y participa al instante</p>
@@ -919,6 +928,7 @@
                 <div class="facebook-grid">
                     <div class="facebook-card">
                         <div>
+                            <img id="imgPaginaOficial" src="" alt="La suerte está en tus manos página principal" class="facebook-card-img">
                             <div class="facebook-card-tag">Página Oficial de Facebook</div>
                             <div class="facebook-card-nombre">La suerte está en tus manos</div>
                             <p>
@@ -932,6 +942,7 @@
 
                     <div class="facebook-card">
                         <div>
+                            <img id="imgPaginaEnVivos" src="" alt="La suerte está en tus manos transmisiones en vivo" class="facebook-card-img">
                             <div class="facebook-card-tag">Página para En Vivos de los Ganadores</div>
                             <div class="facebook-card-nombre">Olla Sol</div>
                             <p>
@@ -944,7 +955,7 @@
                     </div>
 
                     <div class="facebook-qr-box">
-                        <img id="imagenQrFacebook" src="" alt="Códigos QR de La suerte está en tus manos y Olla Sol">
+                        <img id="imagenQrFacebook" src="" alt="Códigos QR: La suerte está en tus manos y Olla Sol">
                         <span>Códigos QR: La suerte está en tus manos y Olla Sol</span>
                     </div>
                 </div>
@@ -1086,10 +1097,10 @@
             return `img/${encodeURIComponent(nombreArchivo)}`;
         }
 
-        const RUTA_LOGO_RIFAS = rutaImagenLocal("WhatsApp Image 2026-11-19 at 1.54.52 PM.jpeg");
-        const RUTA_IMAGEN_WHISKY = rutaImagenLocal("WhatsApp Image 2026-11-19 at 1.54.52 PM (1).jpeg");
-        const RUTA_IMAGEN_TEQUILA = rutaImagenLocal("WhatsApp Image 2026-11-19 at 1.54.52 PM (2).jpeg");
-        const RUTA_IMAGEN_QR = rutaImagenLocal("WhatsApp Image 2026-11-19 at 1.54.52 PM (3).jpeg");
+        const RUTA_LOGO_RIFAS = rutaImagenLocal("WhatsApp Image 2026-11-19 at 1.54.52 PM (3).jpeg");
+        const RUTA_IMAGEN_QR = rutaImagenLocal("WhatsApp Image 2026-11-19 at 1.54.52 PM.jpeg");
+        const RUTA_IMAGEN_FACEBOOK_EN_VIVO = rutaImagenLocal("WhatsApp Image 2026-11-19 at 1.54.52 PM (1).jpeg");
+        const RUTA_IMAGEN_FACEBOOK_PRINCIPAL = rutaImagenLocal("WhatsApp Image 2026-11-19 at 1.54.52 PM (2).jpeg");
 
         // ==========================================
         // BASE DE DATOS DE TUS RIFAS
@@ -1103,7 +1114,7 @@
                 precio: 10,
                 totalNumeros: 10,
                 maxPorCompra: 5,
-                imagen: RUTA_IMAGEN_WHISKY
+                imagen: RUTA_IMAGEN_FACEBOOK_PRINCIPAL
             },
             {
                 id: "rifa_tequila",
@@ -1112,7 +1123,7 @@
                 precio: 15,
                 totalNumeros: 50,
                 maxPorCompra: 2,
-                imagen: RUTA_IMAGEN_TEQUILA
+                imagen: RUTA_IMAGEN_FACEBOOK_EN_VIVO
             },
             {
                 id: "rifa_efectivo",
@@ -1138,8 +1149,13 @@
         function configurarMultimediaYEnlaces() {
             const logoImg = document.getElementById('logoRifasImg');
             const qrImg = document.getElementById('imagenQrFacebook');
+            const imgOficial = document.getElementById('imgPaginaOficial');
+            const imgEnVivos = document.getElementById('imgPaginaEnVivos');
+
             if (logoImg) logoImg.src = RUTA_LOGO_RIFAS;
             if (qrImg) qrImg.src = RUTA_IMAGEN_QR;
+            if (imgOficial) imgOficial.src = RUTA_IMAGEN_FACEBOOK_PRINCIPAL;
+            if (imgEnVivos) imgEnVivos.src = RUTA_IMAGEN_FACEBOOK_EN_VIVO;
 
             const linkOficial = document.getElementById('enlacePaginaOficial');
             const linkEnVivos = document.getElementById('enlacePaginaEnVivos');
