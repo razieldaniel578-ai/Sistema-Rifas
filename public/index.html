@@ -886,7 +886,7 @@
     <!-- Encabezado general -->
     <nav class="navbar">
         <div class="navbar-brand">
-            <img src="img/1000456049.jpg" alt="Logotipo La Suerte en Tus Manos Rifas" class="logo-rifas">
+            <img id="logoRifasImg" src="" alt="Logotipo La Suerte en Tus Manos Rifas" class="logo-rifas">
             <h1>🎟️ Sorteos y Rifas Oficiales</h1>
         </div>
         <p>Elige tu rifa favorita, selecciona tus números de la suerte y participa al instante</p>
@@ -944,7 +944,7 @@
                     </div>
 
                     <div class="facebook-qr-box">
-                        <img src="img/1000456224.jpg" alt="Códigos QR de La suerte está en tus manos y Olla Sol">
+                        <img id="imagenQrFacebook" src="" alt="Códigos QR de La suerte está en tus manos y Olla Sol">
                         <span>Códigos QR: La suerte está en tus manos y Olla Sol</span>
                     </div>
                 </div>
@@ -952,7 +952,7 @@
         </div>
 
         <!-- ==========================================
-             VISTA 2: CUADRÍCULA DE NÚMEROS
+             VISTA 2: DETALLE DE RIFA Y CUADRÍCULA
              ========================================== -->
         <div id="vistaDetalleRifa">
             <button class="btn-volver" onclick="volverAlCatalogo()">
@@ -1080,6 +1080,18 @@
         const URL_PAGINA_EN_VIVOS = "https://www.facebook.com/profile.php?id=61585987586407"; // Olla Sol
 
         // ==========================================
+        // RUTAS DE IMÁGENES EN CARPETA img/
+        // ==========================================
+        function rutaImagenLocal(nombreArchivo) {
+            return `img/${encodeURIComponent(nombreArchivo)}`;
+        }
+
+        const RUTA_LOGO_RIFAS = rutaImagenLocal("WhatsApp Image 2026-11-19 at 1.54.52 PM.jpeg");
+        const RUTA_IMAGEN_WHISKY = rutaImagenLocal("WhatsApp Image 2026-11-19 at 1.54.52 PM (1).jpeg");
+        const RUTA_IMAGEN_TEQUILA = rutaImagenLocal("WhatsApp Image 2026-11-19 at 1.54.52 PM (2).jpeg");
+        const RUTA_IMAGEN_QR = rutaImagenLocal("WhatsApp Image 2026-11-19 at 1.54.52 PM (3).jpeg");
+
+        // ==========================================
         // BASE DE DATOS DE TUS RIFAS
         // maxPorCompra es independiente en cada rifa
         // ==========================================
@@ -1091,7 +1103,7 @@
                 precio: 10,
                 totalNumeros: 10,
                 maxPorCompra: 5,
-                imagen: "img/1000456058.jpg"
+                imagen: RUTA_IMAGEN_WHISKY
             },
             {
                 id: "rifa_tequila",
@@ -1100,7 +1112,7 @@
                 precio: 15,
                 totalNumeros: 50,
                 maxPorCompra: 2,
-                imagen: "img/1000456059.jpg"
+                imagen: RUTA_IMAGEN_TEQUILA
             },
             {
                 id: "rifa_efectivo",
@@ -1123,7 +1135,12 @@
             return String(num).padStart(digitos, '0');
         }
 
-        function configurarEnlacesFacebook() {
+        function configurarMultimediaYEnlaces() {
+            const logoImg = document.getElementById('logoRifasImg');
+            const qrImg = document.getElementById('imagenQrFacebook');
+            if (logoImg) logoImg.src = RUTA_LOGO_RIFAS;
+            if (qrImg) qrImg.src = RUTA_IMAGEN_QR;
+
             const linkOficial = document.getElementById('enlacePaginaOficial');
             const linkEnVivos = document.getElementById('enlacePaginaEnVivos');
             const linkEnVivoAviso = document.getElementById('enlaceFacebookEnVivo');
@@ -1151,7 +1168,7 @@
         // RENDERIZAR VISTA 1: TARJETAS
         // ==========================================
         async function cargarCatalogo() {
-            configurarEnlacesFacebook();
+            configurarMultimediaYEnlaces();
             const contenedor = document.getElementById('contenedorTarjetas');
             contenedor.innerHTML = '';
 
