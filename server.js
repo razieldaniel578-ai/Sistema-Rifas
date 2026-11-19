@@ -2,7 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
-const { MercadoPagoConfig, Preference } = require('mercadopago');
+const crypto = require('crypto');
+const { MercadoPagoConfig, Order } = require('mercadopago');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -40,45 +41,62 @@ app.get('/api/vendidos/:rifaId', (req, res) => {
   res.json(lista);
 });
 
-// Ruta para crear preferencia de pago en Mercado Pago
+// Ruta para crear orden de pago en Mercado Pago (API Orders)
 app.post('/api/crear-pago', async (req, res) => {
   const { rifaId, tituloRifa, numeroBoleto, precio } = req.body;
 
-  const accessToken = process.env.MP_ACCESS_TOKEN || 'TU_ACCESS_TOKEN_AQUI';
+  const accessToken = process.env.MP_ACCESS_TOKEN;
 
-  if (!accessToken || accessToken === 'TU_ACCESS_TOKEN_AQUI') {
+  if (!accessToken) {
     return res.status(400).json({
-      error: 'Falta configurar tu Access Token real de Mercado Pago en el servidor.'
+      error: 'Falta configurar MP_ACCESS_TOKEN en las variables de entorno del servidor.'
     });
   }
 
-  try {
-    const client = new MercadoPagoConfig({ accessToken });
-    const preference = new Preference(client);
+  const montoNumerico = Number(precio);
+  if (!Number.isFinite(montoNumerico) || montoNumerico <= 0) {
+    return res.status(400).json({
+      error: 'El precio del boleto no es válido.'
+    });
+  }
 
-    const resultado = await preference.create({
-      body: {
-        items: [
-          {
-            title: `${tituloRifa} - Boleto #${numeroBoleto}`,
-            quantity: 1,
-            unit_price: Number(precio),
-            currency_id: 'MXN'
-          }
-        ],
-        metadata: {
-          rifaId,
-          numeroBoleto
-        }
+  const montoFormateado = montoNumerico.toFixed(2);
+
+  try {
+    const client = new MercadoPagoConfig({
+      accessToken,
+      options: {
+        idempotencyKey: crypto.randomUUID()
       }
     });
 
+    const order = new Order(client);
+
+    const resultado = await order.create({
+      body: {
+        type: 'online',
+        processing_mode: 'manual',
+        total_amount: montoFormateado,
+        external_reference: `${rifaId || 'rifa'}-boleto-${numeroBoleto}`,
+        items: [
+          {
+            title: `${tituloRifa || 'Rifa'} - Boleto #${numeroBoleto}`,
+            quantity: 1,
+            unit_price: montoFormateado
+          }
+        ]
+      }
+    });
+
+    const checkoutUrl = resultado.checkout_url;
+
     res.json({
       id: resultado.id,
-      init_point: resultado.init_point
+      checkout_url: checkoutUrl,
+      init_point: checkoutUrl
     });
   } catch (error) {
-    console.error('Error al crear preferencia en Mercado Pago:', error);
+    console.error('Error al crear orden en Mercado Pago:', error);
     res.status(500).json({
       error: 'Error al conectar con Mercado Pago'
     });
