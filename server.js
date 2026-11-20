@@ -40,6 +40,11 @@ const CONFIG_RIFAS = {
   }
 };
 
+function formatearNumeroBoleto(num, totalNumeros) {
+  const digitos = totalNumeros >= 1000 ? 3 : 2;
+  return String(num).padStart(digitos, '0');
+}
+
 function leerJsonSeguro(rutaArchivo, valorPorDefecto) {
   try {
     if (!fs.existsSync(rutaArchivo)) {
@@ -177,7 +182,6 @@ async function sincronizarEstadoRifa(rifaId) {
       }
     }
   } else if (!agotada && estadoActual.agotada) {
-    // Si por alguna razón vuelven a quedar boletos disponibles
     estadoActual.agotada = false;
     estadoActual.fechaAgotada = null;
     estadoActual.fechaSorteo = null;
@@ -342,7 +346,6 @@ app.post('/api/crear-pago', async (req, res) => {
     });
   }
 
-  // Normalizar arreglo de boletos seleccionados
   let boletos = [];
   if (Array.isArray(numerosBoletos) && numerosBoletos.length > 0) {
     boletos = numerosBoletos.map(n => Number(n));
@@ -350,7 +353,6 @@ app.post('/api/crear-pago', async (req, res) => {
     boletos = [Number(numeroBoleto)];
   }
 
-  // Eliminar duplicados y validar números enteros dentro del rango
   boletos = [...new Set(boletos)];
   if (
     boletos.length === 0 ||
@@ -361,14 +363,12 @@ app.post('/api/crear-pago', async (req, res) => {
     });
   }
 
-  // Validar límite máximo de boletos por compra en esta rifa
   if (boletos.length > rifaConfig.maxPorCompra) {
     return res.status(400).json({
       error: `En "${rifaConfig.titulo}" solo se permiten máximo ${rifaConfig.maxPorCompra} boletos por compra.`
     });
   }
 
-  // Validar datos del comprador
   const nombreComprador = comprador && typeof comprador.nombre === 'string' ? comprador.nombre.trim() : '';
   const telefonoComprador = comprador && typeof comprador.telefono === 'string' ? comprador.telefono.trim() : '';
 
@@ -378,7 +378,6 @@ app.post('/api/crear-pago', async (req, res) => {
     });
   }
 
-  // Verificar que ninguno de los boletos esté ya vendido
   const vendidosActuales = leerVendidos();
   const ocupadosRifa = Array.isArray(vendidosActuales[rifaId])
     ? vendidosActuales[rifaId].map(Number)
@@ -387,16 +386,17 @@ app.post('/api/crear-pago', async (req, res) => {
   const yaOcupados = boletos.filter(n => ocupadosRifa.includes(n));
   if (yaOcupados.length > 0) {
     return res.status(409).json({
-      error: `Los boletos #${yaOcupados.join(', #')} ya fueron vendidos. Elige otros números.`
+      error: `Los boletos #${yaOcupados.map(n => formatearNumeroBoleto(n, rifaConfig.totalNumeros)).join(', #')} ya fueron vendidos. Elige otros números.`
     });
   }
 
   boletos.sort((a, b) => a - b);
 
+  const boletosFormateados = boletos.map(n => `#${formatearNumeroBoleto(n, rifaConfig.totalNumeros)}`);
+  const etiquetasBoletos = boletosFormateados.join(', ');
   const montoNumerico = boletos.length * rifaConfig.precioUnitario;
   const montoFormateado = montoNumerico.toFixed(2);
   const precioUnitarioFormateado = Number(rifaConfig.precioUnitario).toFixed(2);
-  const etiquetasBoletos = boletos.map(n => `#${n}`).join(', ');
   const tituloFinal = tituloRifa || rifaConfig.titulo;
 
   try {
@@ -414,10 +414,11 @@ app.post('/api/crear-pago', async (req, res) => {
         type: 'online',
         processing_mode: 'manual',
         total_amount: montoFormateado,
-        external_reference: `${rifaId}-boletos-${boletos.join('-')}`,
+        external_reference: `${rifaId}-boletos-${boletosFormateados.map(b => b.replace('#', '')).join('-')}`,
         items: [
           {
-            title: `${tituloFinal} - Boletos ${etiquetasBoletos}`,
+            title: `${tituloFinal} - Boletos: ${etiquetasBoletos}`,
+            description: `Números elegidos: ${etiquetasBoletos} | Comprador: ${nombreComprador}`,
             quantity: boletos.length,
             unit_price: precioUnitarioFormateado
           }
@@ -427,13 +428,13 @@ app.post('/api/crear-pago', async (req, res) => {
 
     const checkoutUrl = resultado.checkout_url;
 
-    // Guardar registro del intento/orden con datos del comprador para seguimiento
     guardarRegistroCompra({
       fecha: new Date().toISOString(),
       orderId: resultado.id,
       rifaId,
       tituloRifa: tituloFinal,
       numerosBoletos: boletos,
+      boletosFormateados,
       cantidadBoletos: boletos.length,
       totalMonto: Number(montoFormateado),
       metodoPago: metodoPago || 'Mercado Pago',
