@@ -1270,6 +1270,7 @@
                 <div class="campo-grupo">
                     <label for="adminRifaSelect">Rifa</label>
                     <select id="adminRifaSelect" onchange="cargarGanadoresEnFormularioAdmin()">
+                        <option value="rifa_mezcal">Rifa Especial: Mezcal Artesanal</option> 
                         <option value="rifa_whisky">Gran Rifa: Combo Whisky Especial</option>
                         <option value="rifa_tequila">Rifa Express: Tequila & Botana</option>
                         <option value="rifa_efectivo">Gran Rifa en Efectivo ($1,000 MXN)</option>
@@ -1328,15 +1329,15 @@
         // maxPorCompra es independiente en cada rifa
         // ==========================================
         const listaRifas = [
-              {
-                id: "rifa_whisky",
-                titulo: "Gran Rifa: Combo Whisky Especial",
-                premio: "Botella de Andrews Special Blended + Black Derby. Sorteo en vivo por Facebook.",
-                precio: 10,
-                totalNumeros: 10,
-                maxPorCompra: 5,
+            {
+                id: "rifa_mezcal",
+                titulo: "Rifa Especial: Mezcal Artesanal",
+                premio: "Botella de mezcal espadín artesanal + vaso de barro.",
+                precio: 25,
+                totalNumeros: 30,
+                maxPorCompra: 3,
                 imagen: RUTA_IMAGEN_FACEBOOK_PRINCIPAL
-            },
+            },f
             {
                 id: "rifa_whisky",
                 titulo: "Gran Rifa: Combo Whisky Especial",
