@@ -1324,12 +1324,11 @@
         // ==========================================
         const URL_PAGINA_OFICIAL = "https://www.facebook.com/la.suerte.en.tus.manos.rifas/"; // La suerte está en tus manos
         const URL_PAGINA_EN_VIVOS = "https://www.facebook.com/profile.php?id=61585987586407"; // Olla Sol
-
-        // ==========================================
         // RUTAS DE IMÁGENES EN CARPETA img/
-        // ==========================================
+        // ===================================
         function rutaImagenLocal(nombreArchivo) {
-            return `img/${encodeURIComponent(nombreArchivo)}`;
+            // Se agrega la barra '/' al inicio para evitar errores de rutas relativas
+            return `/img/${encodeURIComponent(nombreArchivo)}`;
         }
 
         const RUTA_LOGO_RIFAS = rutaImagenLocal("WhatsApp Image 2026-11-19 at 1.54.52 PM (3).jpeg");
@@ -1337,7 +1336,6 @@
         const RUTA_IMAGEN_FACEBOOK_EN_VIVO = rutaImagenLocal("WhatsApp Image 2026-11-19 at 1.54.52 PM (1).jpeg");
         const RUTA_IMAGEN_FACEBOOK_PRINCIPAL = rutaImagenLocal("WhatsApp Image 2026-11-19 at 1.54.52 PM (2).jpeg");
         const RUTA_IMAGEN_1000_PRINCIPAL = rutaImagenLocal("969a4a3d-a82c-49e5-a420-b6e706591181.webp");
-
         // ==========================================
         // BASE DE DATOS DE TUS RIFAS
         // maxPorCompra es independiente en cada rifa
