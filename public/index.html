@@ -1270,10 +1270,10 @@
                 <div class="campo-grupo">
                     <label for="adminRifaSelect">Rifa</label>
                     <select id="adminRifaSelect" onchange="cargarGanadoresEnFormularioAdmin()">
-                        <option value="rifa_mezcal">Rifa Especial: Mezcal Artesanal</option> 
-                        <option value="rifa_whisky">Gran Rifa: Combo Whisky Especial</option>
-                        <option value="rifa_tequila">Rifa Express: Tequila & Botana</option>
-                        <option value="rifa_efectivo">Gran Rifa en Efectivo ($1,000 MXN)</option>
+                        <option value="rifa_mezcal">Gran Rifa: En Efectivo $1,000</option>
+                        <option value="rifa_whisky">Gran Rifa: En Efectivo $2,000</option>
+                        <option value="rifa_tequila">Gran Rifa: En Efectivo $4,000</option>
+                        <option value="rifa_efectivo">Gran Rifa: En Efectivo $8,000</option>
                     </select>
                 </div>
                 <div class="campo-grupo">
@@ -1324,10 +1324,11 @@
         // ==========================================
         const URL_PAGINA_OFICIAL = "https://www.facebook.com/la.suerte.en.tus.manos.rifas/"; // La suerte está en tus manos
         const URL_PAGINA_EN_VIVOS = "https://www.facebook.com/profile.php?id=61585987586407"; // Olla Sol
+
+        // ==========================================
         // RUTAS DE IMÁGENES EN CARPETA img/
-        // ===================================
+        // ==========================================
         function rutaImagenLocal(nombreArchivo) {
-            // Se agrega la barra '/' al inicio para evitar errores de rutas relativas
             return `/img/${encodeURIComponent(nombreArchivo)}`;
         }
 
@@ -1336,6 +1337,7 @@
         const RUTA_IMAGEN_FACEBOOK_EN_VIVO = rutaImagenLocal("WhatsApp Image 2026-11-19 at 1.54.52 PM (1).jpeg");
         const RUTA_IMAGEN_FACEBOOK_PRINCIPAL = rutaImagenLocal("WhatsApp Image 2026-11-19 at 1.54.52 PM (2).jpeg");
         const RUTA_IMAGEN_1000_PRINCIPAL = rutaImagenLocal("969a4a3d-a82c-49e5-a420-b6e706591181.webp");
+
         // ==========================================
         // BASE DE DATOS DE TUS RIFAS
         // maxPorCompra es independiente en cada rifa
@@ -1343,17 +1345,17 @@
         const listaRifas = [
             {
                 id: "rifa_mezcal",
-                titulo: "Gran Rifa:En Efetivo $1000",
-                premio: "Se Rifaran 3 lugares (1.-$1000 MXN)(2.-$750 MXN)(3.-$500 MXN)Sorteo en vivo por Facebook.",
+                titulo: "Gran Rifa: En Efectivo $1,000",
+                premio: "Se Rifaran 3 lugares (1.-$1000 MXN)(2.-$750 MXN)(3.-$500 MXN). Sorteo en vivo por Facebook.",
                 precio: 35,
                 totalNumeros: 101,
                 maxPorCompra: 10,
-                imagen: RUTA_IMAGEN_1000_PRINCIPA
+                imagen: RUTA_IMAGEN_1000_PRINCIPAL
             },
             {
                 id: "rifa_whisky",
-                titulo: "Gran Rifa:En Efectivo $2000",
-                premio: "Se Rifaran 3 lugares (1.-$2000 MXN)(2.-$1500 MXN)(3.-$1000 MXN).Sorteo en vivo por Facebook.",
+                titulo: "Gran Rifa: En Efectivo $2,000",
+                premio: "Se Rifaran 3 lugares (1.-$2000 MXN)(2.-$1500 MXN)(3.-$1000 MXN). Sorteo en vivo por Facebook.",
                 precio: 35,
                 totalNumeros: 201,
                 maxPorCompra: 20,
@@ -1361,8 +1363,8 @@
             },
             {
                 id: "rifa_tequila",
-                titulo: "Gran Rifa:En Efetivo $4000",
-                premio: "Se Rifaran 3 lugares (1.-$4000 MXN)(2.-$3000 MXN)(3.-$2000 MXN).Sorteo en vivo por Facebook.",
+                titulo: "Gran Rifa: En Efectivo $4,000",
+                premio: "Se Rifaran 3 lugares (1.-$4000 MXN)(2.-$3000 MXN)(3.-$2000 MXN). Sorteo en vivo por Facebook.",
                 precio: 50,
                 totalNumeros: 301,
                 maxPorCompra: 30,
@@ -1370,13 +1372,13 @@
             },
             {
                 id: "rifa_efectivo",
-                titulo: "Gran Rifa:en Efectivo $8000",
-                premio: "Se Rifaran 3 lugares (1.-$8000 MXN)(2.-$6000 MXN)(3.-$4000 MXN).Sorteo en vivo por Facebook.",
+                titulo: "Gran Rifa: En Efectivo $8,000",
+                premio: "Se Rifaran 3 lugares (1.-$8000 MXN)(2.-$6000 MXN)(3.-$4000 MXN). Sorteo en vivo por Facebook.",
                 precio: 75,
                 totalNumeros: 401,
                 maxPorCompra: 40,
                 imagen: RUTA_IMAGEN_FACEBOOK_EN_VIVO
-            },
+            }
         ];
 
         let rifaActual = null;
@@ -1418,7 +1420,6 @@
             if (linkEnVivoAviso) linkEnVivoAviso.href = URL_PAGINA_EN_VIVOS;
         }
 
-        // Consulta al backend los boletos vendidos de una rifa
         async function obtenerVendidos(rifaId) {
             try {
                 const respuesta = await fetch(`/api/vendidos/${encodeURIComponent(rifaId)}`);
@@ -1433,7 +1434,6 @@
             }
         }
 
-        // Consulta estado de agotado / cuenta regresiva de 24h
         async function obtenerEstadoRifa(rifaId) {
             try {
                 const respuesta = await fetch(`/api/estado-rifa/${encodeURIComponent(rifaId)}`);
@@ -1445,7 +1445,6 @@
             }
         }
 
-        // Consulta ganadores de una rifa (1er, 2do y 3er lugar - solo nombres)
         async function obtenerGanadores(rifaId) {
             try {
                 const respuesta = await fetch(`/api/ganadores/${encodeURIComponent(rifaId)}`);
@@ -1674,7 +1673,6 @@
             const vendidos = await obtenerVendidos(rifaActual.id);
             boletosVendidosActuales = vendidos;
 
-            // Quitar cualquier boleto que ya haya sido vendido
             boletosSeleccionados = boletosSeleccionados.filter(num => !vendidos.includes(num));
 
             const total = rifaActual.totalNumeros;
@@ -1687,7 +1685,6 @@
             document.getElementById('statVendidos').innerText = cantVendidos;
             document.getElementById('barraProgreso').style.width = `${porcentaje}%`;
 
-            // Mostrar aviso y cuenta regresiva de 24h cuando se agotan los boletos
             const avisoSorteo = document.getElementById('avisoSorteoVivo');
             const barraSeleccion = document.getElementById('barraSeleccion');
             const tituloTablero = document.getElementById('tituloTableroBoletos');
@@ -1888,6 +1885,7 @@
                 alert('Error de conexión con el servidor.');
             }
         }
+
         async function reiniciarRifaAdmin() {
             const adminKey = document.getElementById('adminClaveInput').value.trim();
             const rifaId = document.getElementById('adminRifaSelect').value;
@@ -1930,7 +1928,8 @@
                 alert('Error de conexión con el servidor.');
             }
         }
-     async function descargarReportePdfRifa() {
+
+        async function descargarReportePdfRifa() {
             const inputClave = document.getElementById('adminClaveInput');
             const selectRifa = document.getElementById('adminRifaSelect');
             const adminKey = inputClave ? inputClave.value.trim() : '';
@@ -2063,6 +2062,7 @@
                 alert('Error al generar el reporte: ' + (err && err.message ? err.message : err));
             }
         }
+
         async function verParticipantesAdmin() {
             const adminKey = document.getElementById('adminClaveInput').value.trim();
             const rifaId = document.getElementById('adminRifaSelect').value;
