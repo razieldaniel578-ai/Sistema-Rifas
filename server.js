@@ -24,25 +24,25 @@ const CONFIG_RIFAS ={
     titulo: 'Gran Rifa:En Efectivo $1000',
     precioUnitario: 35,
     totalNumeros: 101,
-    maxPorCompra: 10
+    maxPorCompra: 101
 },
   rifa_whisky: {
     titulo: 'Gran Rifa:En Efectivo $2000',
     precioUnitario: 35,
     totalNumeros: 201,
-    maxPorCompra: 20
+    maxPorCompra: 201
   },
   rifa_tequila: {
     titulo: 'Gran Rifa:En Efetivo $4000',
     precioUnitario: 50,
     totalNumeros: 301,
-    maxPorCompra: 30
+    maxPorCompra: 301
   },
   rifa_efectivo: {
     titulo: 'Gran Rifa:en Efectivo $8000',
     precioUnitario: 75,
     totalNumeros: 401,
-    maxPorCompra: 40
+    maxPorCompra: 401
   }
 };
 
