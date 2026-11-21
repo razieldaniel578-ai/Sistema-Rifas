@@ -1309,6 +1309,9 @@
                     🔄 Confirmar y reiniciar rifa
                 </button>
             </div>
+            <button type="button" class="btn-metodo" style="width: 100%; margin-top: 10px; background: linear-gradient(135deg, #0f766e 0%, #115e59 100%);" onclick="descargarReportePdfRifa()">
+                📄 Generar / Guardar PDF de la rifa
+            </button>
             <div id="listaParticipantesAdmin" class="lista-participantes-admin" style="display: none;"></div>
 
             <button type="button" class="btn-cerrar-modal" onclick="cerrarModalOrganizador()">Cerrar panel</button>
@@ -1926,6 +1929,111 @@
             } catch (err) {
                 console.error('Error al reiniciar la rifa:', err);
                 alert('Error de conexión con el servidor.');
+            }
+        }
+        async function descargarReportePdfRifa() {
+            const adminKey = document.getElementById('adminClaveInput').value.trim();
+            const rifaId = document.getElementById('adminRifaSelect').value;
+
+            if (!adminKey) {
+                alert('Escribe tu clave de administrador primero.');
+                return;
+            }
+
+            try {
+                const resp = await fetch('/api/admin/participantes', {
+                    headers: { 'x-admin-key': adminKey }
+                });
+                const data = await resp.json();
+
+                if (!resp.ok) {
+                    alert(data.error || 'Clave incorrecta o sin permiso.');
+                    return;
+                }
+
+                const rifaObj = (typeof listaRifas !== 'undefined')
+                    ? listaRifas.find(r => r.id === rifaId)
+                    : null;
+
+                const totalNums = rifaObj ? rifaObj.totalNumeros : 100;
+                const tituloRifa = rifaObj ? rifaObj.titulo : rifaId;
+                const digitos = String(Math.max(0, totalNums - 1)).length < 2 ? 2 : String(Math.max(0, totalNums - 1)).length;
+
+                const registrosRifa = (data.registros || []).filter(reg => reg.rifaId === rifaId);
+                const mapaBoletos = {};
+                registrosRifa.forEach(reg => {
+                    (reg.boletos || []).forEach(num => {
+                        mapaBoletos[Number(num)] = {
+                            nombre: reg.nombre || 'Sin nombre',
+                            telefono: reg.telefono || 'Sin teléfono'
+                        };
+                    });
+                });
+
+                const ganadoresData = data.ganadores?.[rifaId] || {};
+                const fechaReporte = new Date().toLocaleString('es-MX');
+
+                let filasHtml = '';
+                for (let i = 0; i < totalNums; i++) {
+                    const etiqueta = String(i).padStart(digitos, '0');
+                    const comprador = mapaBoletos[i];
+                    filasHtml += `
+                        <tr>
+                            <td style="padding:6px 8px; border:1px solid #cbd5e1; font-weight:bold;">#${etiqueta}</td>
+                            <td style="padding:6px 8px; border:1px solid #cbd5e1;">${comprador ? comprador.nombre : 'Disponible / Sin registro'}</td>
+                            <td style="padding:6px 8px; border:1px solid #cbd5e1;">${comprador ? comprador.telefono : '—'}</td>
+                        </tr>
+                    `;
+                }
+
+                const ventana = window.open('', '_blank');
+                ventana.document.write(`
+                    <html>
+                    <head>
+                        <title>Reporte - ${tituloRifa}</title>
+                        <style>
+                            body { font-family: Arial, sans-serif; padding: 24px; color: #0f172a; }
+                            h1 { margin: 0 0 6px 0; font-size: 20px; }
+                            .meta { margin-bottom: 16px; font-size: 13px; color: #334155; }
+                            .ganadores { background: #f8fafc; border: 1px solid #cbd5e1; padding: 10px 14px; margin-bottom: 18px; font-size: 13px; }
+                            table { width: 100%; border-collapse: collapse; font-size: 12px; }
+                            th { background: #e2e8f0; text-align: left; padding: 7px 8px; border: 1px solid #cbd5e1; }
+                        </style>
+                    </head>
+                    <body>
+                        <h1>Reporte de Rifa: ${tituloRifa}</h1>
+                        <div class="meta">
+                            <strong>ID de rifa:</strong> ${rifaId}<br>
+                            <strong>Fecha de emisión:</strong> ${fechaReporte}
+                        </div>
+                        <div class="ganadores">
+                            <strong>Ganadores registrados:</strong><br>
+                            1.er lugar: ${ganadoresData.primer || '—'} &nbsp;|&nbsp;
+                            2.º lugar: ${ganadoresData.segundo || '—'} &nbsp;|&nbsp;
+                            3.er lugar: ${ganadoresData.tercer || '—'}
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Boleto</th>
+                                    <th>Nombre del comprador</th>
+                                    <th>Teléfono</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${filasHtml}
+                            </tbody>
+                        </table>
+                        <script>
+                            window.onload = function() { window.print(); };
+                        <\/script>
+                    </body>
+                    </html>
+                `);
+                ventana.document.close();
+            } catch (err) {
+                console.error(err);
+                alert('Error al generar el reporte.');
             }
         }
         async function verParticipantesAdmin() {
