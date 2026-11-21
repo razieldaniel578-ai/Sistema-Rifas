@@ -325,7 +325,35 @@ app.post('/api/marcar-vendidos', async (req, res) => {
     estadoRifa: estadoActualizado
   });
 });
+// Ruta protegida para reiniciar una rifa completa (boletos vendidos, estado 24h y ganadores)
+app.post('/api/reiniciar-rifa/:rifaId', (req, res) => {
+  if (!estaAutorizadoAdmin(req)) {
+    return res.status(401).json({ error: 'No autorizado. Clave de administrador inválida.' });
+  }
 
+  const { rifaId } = req.params;
+  if (!CONFIG_RIFAS[rifaId]) {
+    return res.status(404).json({ error: 'Rifa no encontrada.' });
+  }
+
+  const vendidosData = leerVendidos();
+  vendidosData[rifaId] = [];
+  guardarVendidos(vendidosData);
+
+  const estadosData = leerEstadoRifas();
+  delete estadosData[rifaId];
+  guardarEstadoRifas(estadosData);
+
+  const ganadoresData = leerGanadores();
+  delete ganadoresData[rifaId];
+  guardarGanadores(ganadoresData);
+
+  res.json({
+    ok: true,
+    rifaId,
+    mensaje: `La rifa "${CONFIG_RIFAS[rifaId].titulo}" fue reiniciada desde cero.`
+  });
+});
 // Ruta para crear orden de pago en Mercado Pago (API Orders)
 app.post('/api/crear-pago', async (req, res) => {
   const {
