@@ -1298,7 +1298,17 @@
                     📋 Ver participantes y boletos registrados
                 </button>
             </div>
-
+            <div style="margin-top: 18px; padding-top: 16px; border-top: 1px solid #e2e8f0; text-align: left;">
+                <div style="font-size: 0.92rem; font-weight: 800; color: var(--ink-dark); margin-bottom: 6px;">
+                    🔄 Reiniciar rifa seleccionada
+                </div>
+                <p style="font-size: 0.84rem; color: var(--ink-muted); margin-bottom: 12px;">
+                    Libera todos los números, quita el reloj de 24 horas y borra los ganadores de la rifa elegida arriba.
+                </p>
+                <button type="button" class="btn-metodo" style="width: 100%; background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);" onclick="reiniciarRifaAdmin()">
+                    🔄 Confirmar y reiniciar rifa
+                </button>
+            </div>
             <div id="listaParticipantesAdmin" class="lista-participantes-admin" style="display: none;"></div>
 
             <button type="button" class="btn-cerrar-modal" onclick="cerrarModalOrganizador()">Cerrar panel</button>
@@ -1876,7 +1886,48 @@
                 alert('Error de conexión con el servidor.');
             }
         }
+        async function reiniciarRifaAdmin() {
+            const adminKey = document.getElementById('adminClaveInput').value.trim();
+            const rifaId = document.getElementById('adminRifaSelect').value;
+            const nombreRifa = document.getElementById('adminRifaSelect').selectedOptions[0]?.text || rifaId;
 
+            if (!adminKey) {
+                alert('Escribe tu clave de administrador primero.');
+                return;
+            }
+
+            const seguro = confirm(`¿Seguro que deseas reiniciar "${nombreRifa}"? Se borrarán los boletos vendidos, el reloj de 24h y los ganadores de esta rifa.`);
+            if (!seguro) return;
+
+            try {
+                const resp = await fetch(`/api/reiniciar-rifa/${encodeURIComponent(rifaId)}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-admin-key': adminKey
+                    }
+                });
+
+                const data = await resp.json();
+                if (!resp.ok) {
+                    alert(data.error || 'No se pudo reiniciar la rifa.');
+                    return;
+                }
+
+                alert(data.mensaje || 'Rifa reiniciada correctamente.');
+                await cargarGanadoresEnFormularioAdmin();
+
+                if (rifaActual && rifaActual.id === rifaId) {
+                    await renderizarGanadoresRifa(rifaId);
+                    await actualizarCuadricula();
+                } else {
+                    await cargarCatalogo();
+                }
+            } catch (err) {
+                console.error('Error al reiniciar la rifa:', err);
+                alert('Error de conexión con el servidor.');
+            }
+        }
         async function verParticipantesAdmin() {
             const adminKey = document.getElementById('adminClaveInput').value.trim();
             const rifaId = document.getElementById('adminRifaSelect').value;
