@@ -1931,7 +1931,7 @@
                 alert('Error de conexión con el servidor.');
             }
         }
-       async function descargarReportePdfRifa() {
+     async function descargarReportePdfRifa() {
             const inputClave = document.getElementById('adminClaveInput');
             const selectRifa = document.getElementById('adminRifaSelect');
             const adminKey = inputClave ? inputClave.value.trim() : '';
@@ -1947,23 +1947,21 @@
             }
 
             try {
-                const resp = await fetch('/api/admin/participantes', {
-                    headers: { 'x-admin-key': adminKey }
-                });
+                const headersAdmin = { 'x-admin-key': adminKey };
 
-                const texto = await resp.text();
-                let data = {};
-                try {
-                    data = JSON.parse(texto);
-                } catch {
-                    alert('El servidor no respondió JSON válido (' + resp.status + ').');
+                const [respReg, respGan] = await Promise.all([
+                    fetch('/api/registros', { headers: headersAdmin }),
+                    fetch(`/api/ganadores/${encodeURIComponent(rifaId)}`)
+                ]);
+
+                if (!respReg.ok) {
+                    const errReg = await respReg.json().catch(() => ({}));
+                    alert(errReg.error || 'Clave incorrecta o sin permiso (' + respReg.status + ').');
                     return;
                 }
 
-                if (!resp.ok) {
-                    alert(data.error || 'Clave incorrecta o sin permiso (' + resp.status + ').');
-                    return;
-                }
+                const registrosTodos = await respReg.json();
+                const ganadoresData = respGan.ok ? await respGan.json() : {};
 
                 const rifaObj = (typeof listaRifas !== 'undefined' && Array.isArray(listaRifas))
                     ? listaRifas.find(r => r.id === rifaId)
@@ -1971,25 +1969,26 @@
 
                 const totalNums = rifaObj && rifaObj.totalNumeros ? Number(rifaObj.totalNumeros) : 100;
                 const tituloRifa = rifaObj && rifaObj.titulo ? rifaObj.titulo : rifaId;
-                const digitos = Math.max(2, String(Math.max(0, totalNums - 1)).length);
+                const digitos = totalNums >= 1000 ? 3 : 2;
 
-                const registrosRifa = Array.isArray(data.registros)
-                    ? data.registros.filter(reg => reg.rifaId === rifaId)
+                const registrosRifa = Array.isArray(registrosTodos)
+                    ? registrosTodos.filter(reg => reg.rifaId === rifaId)
                     : [];
 
                 const mapaBoletos = {};
                 registrosRifa.forEach(reg => {
-                    if (Array.isArray(reg.boletos)) {
-                        reg.boletos.forEach(num => {
-                            mapaBoletos[Number(num)] = {
-                                nombre: reg.nombre || 'Sin nombre',
-                                telefono: reg.telefono || 'Sin teléfono'
-                            };
-                        });
-                    }
+                    const nums = Array.isArray(reg.numerosBoletos)
+                        ? reg.numerosBoletos
+                        : (Array.isArray(reg.boletos) ? reg.boletos : []);
+
+                    const nombre = (reg.comprador && reg.comprador.nombre) || reg.nombre || 'Sin nombre';
+                    const telefono = (reg.comprador && reg.comprador.telefono) || reg.telefono || 'Sin teléfono';
+
+                    nums.forEach(num => {
+                        mapaBoletos[Number(num)] = { nombre, telefono };
+                    });
                 });
 
-                const ganadoresData = (data.ganadores && data.ganadores[rifaId]) ? data.ganadores[rifaId] : {};
                 const fechaReporte = new Date().toLocaleString('es-MX');
 
                 let filasHtml = '';
@@ -2035,9 +2034,9 @@
                         </div>
                         <div class="ganadores">
                             <strong>Ganadores registrados:</strong><br>
-                            1.er lugar: ${ganadoresData.primer || '—'} &nbsp;|&nbsp;
-                            2.º lugar: ${ganadoresData.segundo || '—'} &nbsp;|&nbsp;
-                            3.er lugar: ${ganadoresData.tercer || '—'}
+                            1.er lugar: ${ganadoresData.primerLugar || ganadoresData.primer || '—'} &nbsp;|&nbsp;
+                            2.º lugar: ${ganadoresData.segundoLugar || ganadoresData.segundo || '—'} &nbsp;|&nbsp;
+                            3.er lugar: ${ganadoresData.tercerLugar || ganadoresData.tercer || '—'}
                         </div>
                         <table>
                             <thead>
