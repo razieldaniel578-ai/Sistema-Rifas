@@ -1931,12 +1931,18 @@
                 alert('Error de conexión con el servidor.');
             }
         }
-        async function descargarReportePdfRifa() {
-            const adminKey = document.getElementById('adminClaveInput').value.trim();
-            const rifaId = document.getElementById('adminRifaSelect').value;
+       async function descargarReportePdfRifa() {
+            const inputClave = document.getElementById('adminClaveInput');
+            const selectRifa = document.getElementById('adminRifaSelect');
+            const adminKey = inputClave ? inputClave.value.trim() : '';
+            const rifaId = selectRifa ? selectRifa.value : '';
 
             if (!adminKey) {
                 alert('Escribe tu clave de administrador primero.');
+                return;
+            }
+            if (!rifaId) {
+                alert('Selecciona una rifa primero.');
                 return;
             }
 
@@ -1944,33 +1950,46 @@
                 const resp = await fetch('/api/admin/participantes', {
                     headers: { 'x-admin-key': adminKey }
                 });
-                const data = await resp.json();
 
-                if (!resp.ok) {
-                    alert(data.error || 'Clave incorrecta o sin permiso.');
+                const texto = await resp.text();
+                let data = {};
+                try {
+                    data = JSON.parse(texto);
+                } catch {
+                    alert('El servidor no respondió JSON válido (' + resp.status + ').');
                     return;
                 }
 
-                const rifaObj = (typeof listaRifas !== 'undefined')
+                if (!resp.ok) {
+                    alert(data.error || 'Clave incorrecta o sin permiso (' + resp.status + ').');
+                    return;
+                }
+
+                const rifaObj = (typeof listaRifas !== 'undefined' && Array.isArray(listaRifas))
                     ? listaRifas.find(r => r.id === rifaId)
                     : null;
 
-                const totalNums = rifaObj ? rifaObj.totalNumeros : 100;
-                const tituloRifa = rifaObj ? rifaObj.titulo : rifaId;
-                const digitos = String(Math.max(0, totalNums - 1)).length < 2 ? 2 : String(Math.max(0, totalNums - 1)).length;
+                const totalNums = rifaObj && rifaObj.totalNumeros ? Number(rifaObj.totalNumeros) : 100;
+                const tituloRifa = rifaObj && rifaObj.titulo ? rifaObj.titulo : rifaId;
+                const digitos = Math.max(2, String(Math.max(0, totalNums - 1)).length);
 
-                const registrosRifa = (data.registros || []).filter(reg => reg.rifaId === rifaId);
+                const registrosRifa = Array.isArray(data.registros)
+                    ? data.registros.filter(reg => reg.rifaId === rifaId)
+                    : [];
+
                 const mapaBoletos = {};
                 registrosRifa.forEach(reg => {
-                    (reg.boletos || []).forEach(num => {
-                        mapaBoletos[Number(num)] = {
-                            nombre: reg.nombre || 'Sin nombre',
-                            telefono: reg.telefono || 'Sin teléfono'
-                        };
-                    });
+                    if (Array.isArray(reg.boletos)) {
+                        reg.boletos.forEach(num => {
+                            mapaBoletos[Number(num)] = {
+                                nombre: reg.nombre || 'Sin nombre',
+                                telefono: reg.telefono || 'Sin teléfono'
+                            };
+                        });
+                    }
                 });
 
-                const ganadoresData = data.ganadores?.[rifaId] || {};
+                const ganadoresData = (data.ganadores && data.ganadores[rifaId]) ? data.ganadores[rifaId] : {};
                 const fechaReporte = new Date().toLocaleString('es-MX');
 
                 let filasHtml = '';
@@ -1987,9 +2006,17 @@
                 }
 
                 const ventana = window.open('', '_blank');
+                if (!ventana) {
+                    alert('Tu navegador bloqueó la ventana emergente. Permite ventanas emergentes para este sitio e inténtalo de nuevo.');
+                    return;
+                }
+
+                ventana.document.open();
                 ventana.document.write(`
+                    <!DOCTYPE html>
                     <html>
                     <head>
+                        <meta charset="UTF-8">
                         <title>Reporte - ${tituloRifa}</title>
                         <style>
                             body { font-family: Arial, sans-serif; padding: 24px; color: #0f172a; }
@@ -2025,7 +2052,9 @@
                             </tbody>
                         </table>
                         <script>
-                            window.onload = function() { window.print(); };
+                            window.onload = function() {
+                                setTimeout(function() { window.print(); }, 200);
+                            };
                         <\/script>
                     </body>
                     </html>
@@ -2033,7 +2062,7 @@
                 ventana.document.close();
             } catch (err) {
                 console.error(err);
-                alert('Error al generar el reporte.');
+                alert('Error al generar el reporte: ' + (err && err.message ? err.message : err));
             }
         }
         async function verParticipantesAdmin() {
