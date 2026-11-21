@@ -19,7 +19,13 @@ const ARCHIVO_ESTADO_RIFAS = path.join(__dirname, 'estado_rifas.json');
 const ARCHIVO_GANADORES = path.join(__dirname, 'ganadores.json');
 
 // Configuración de rifas y límites máximos por compra en el servidor
-const CONFIG_RIFAS = {
+const CONFIG_RIFAS ={ 
+  rifa_mezcal: {
+    titulo: 'Rifa Especial: Mezcal Artesanal',
+    precioUnitario: 25,
+    totalNumeros: 30,
+    maxPorCompra: 3
+},
   rifa_whisky: {
     titulo: 'Gran Rifa: Combo Whisky Especial',
     precioUnitario: 10,
