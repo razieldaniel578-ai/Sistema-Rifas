@@ -21,28 +21,28 @@ const ARCHIVO_GANADORES = path.join(__dirname, 'ganadores.json');
 // Configuración de rifas y límites máximos por compra en el servidor
 const CONFIG_RIFAS ={ 
   rifa_mezcal: {
-    titulo: 'Rifa Especial: Mezcal Artesanal',
-    precioUnitario: 25,
-    totalNumeros: 30,
-    maxPorCompra: 3
+    titulo: 'Gran Rifa:En Efectivo $1000',
+    precioUnitario: 35,
+    totalNumeros: 101,
+    maxPorCompra: 10
 },
   rifa_whisky: {
-    titulo: 'Gran Rifa: Combo Whisky Especial',
-    precioUnitario: 10,
-    totalNumeros: 10,
-    maxPorCompra: 5
+    titulo: 'Gran Rifa:En Efectivo $2000',
+    precioUnitario: 35,
+    totalNumeros: 201,
+    maxPorCompra: 20
   },
   rifa_tequila: {
-    titulo: 'Rifa Express: Tequila & Botana',
-    precioUnitario: 15,
-    totalNumeros: 50,
-    maxPorCompra: 2
+    titulo: 'Gran Rifa:En Efetivo $4000',
+    precioUnitario: 50,
+    totalNumeros: 301,
+    maxPorCompra: 30
   },
   rifa_efectivo: {
-    titulo: 'Gran Rifa en Efectivo ($1,000 MXN)',
-    precioUnitario: 20,
-    totalNumeros: 100,
-    maxPorCompra: 10
+    titulo: 'Gran Rifa:en Efectivo $8000',
+    precioUnitario: 75,
+    totalNumeros: 401,
+    maxPorCompra: 40
   }
 };
 
